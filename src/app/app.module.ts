@@ -14,6 +14,10 @@ import { MatListModule } from '@angular/material/list';
 import { LoginComponent } from './login/login.component';
 import { DirectoryComponent } from './directory/directory.component';
 import { BuildingComponent } from './building/building.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,8 @@ import { BuildingComponent } from './building/building.component';
     NavComponent,
     LoginComponent,
     DirectoryComponent,
-    BuildingComponent
+    BuildingComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,10 @@ import { BuildingComponent } from './building/building.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
