@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "building-project-manager": {
+      "hosting": {
+        "building-project-manager": [
+          "building-project-manager"
+        ]
+      }
+    }
+  }
+}
