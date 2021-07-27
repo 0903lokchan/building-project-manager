@@ -3,4 +3,5 @@ export interface Building {
     name: string;
     address: string;
     owner: string;
+    img: string;
 }
