@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { FormsModule } from "@angular/forms";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -17,10 +18,12 @@ import { BuildingComponent } from './building/building.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { ProjectComponent } from './project/project.component';
+
+// for directory
+import { FilterPipe } from "./directory/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -29,13 +32,15 @@ import { ProjectComponent } from './project/project.component';
     LoginComponent,
     DirectoryComponent,
     BuildingComponent,
-    ProjectComponent
+    ProjectComponent,
+    FilterPipe //filter for directory
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    FormsModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -44,7 +49,6 @@ import { ProjectComponent } from './project/project.component';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule
   ],

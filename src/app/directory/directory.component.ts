@@ -19,6 +19,7 @@ interface Card {
 })
 export class DirectoryComponent implements OnInit{
   cards: Card[] = [];
+  searchText: string = "";
 
   getDirectory(): void {
     this.directoryService.getBuildings()
@@ -27,6 +28,10 @@ export class DirectoryComponent implements OnInit{
           return {title: building.name, cols: 1, rows: 1, data: building}
         });
       });
+  }
+
+  onSearchChange(): void{
+
   }
 
   ngOnInit(): void{
