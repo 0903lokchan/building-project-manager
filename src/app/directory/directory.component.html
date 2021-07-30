@@ -1,8 +1,20 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
+  <div>
+    <h1 class="mat-h1">Dashboard</h1>
+    <mat-form-field>
+      <mat-label>Search by property name</mat-label>
+      <input matInput [matAutocomplete]="auto">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let card of cards" [value]="card.title">
+        {{card.title}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+  
   <mat-grid-list cols="4" rowHeight="450px">
     <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" [tabindex]="card.data.id">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
@@ -15,7 +27,7 @@
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
-        <img mat-card-image [src]="card.data.img" alt="picture of the building">
+        <img mat-card-image [src]="card.data.img" alt="picture of the building" onerror="this.src='https://loremflickr.com/408/240'">
         <mat-card-content class="dashboard-card-content">
           <table>
             <tr>
