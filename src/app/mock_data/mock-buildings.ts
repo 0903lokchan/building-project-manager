@@ -1,4 +1,4 @@
-import { Building } from "./building";
+import { Building } from "../data_model/building";
 
 export const BUILDINGS: Building[] = [
     { id: 1, name: '285 Cuba Street', address: '285 Cuba Street, Te Aro, Wellington 6011', owner: 'Jefford Blakeys', img:"https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=x7WgzbHSoJW7pW77XsChbA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=110.759224&pitch=0&thumbfov=100" },

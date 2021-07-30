@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
-import { Building } from "../building";
+import { Building } from "../data_model/building";
 import { DirectoryService } from "../directory.service";
 
 interface Card {

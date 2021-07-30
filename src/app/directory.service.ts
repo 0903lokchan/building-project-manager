@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Building } from "./building";
-import { BUILDINGS } from "./mock-buildings";
+import { Building } from "./data_model/building";
+import { BUILDINGS } from "./mock_data/mock-buildings";
 import { Observable, of } from "rxjs";
 
 @Injectable({
