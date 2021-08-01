@@ -2,10 +2,10 @@ import { Comment } from "./comment";
 import { Work } from "./work";
 
 export enum ProjectStatus {
-    Closed,
-    Current,
-    Scheduled,
-    Unscheduled
+    Closed = "Closed",
+    Current = "Current",
+    Scheduled = "Scheduled",
+    Unscheduled = "Unscheduled"
 }
 
 export interface Project{
