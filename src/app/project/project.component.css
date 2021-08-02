@@ -1,16 +1,32 @@
+table {
+    width: 100%;
+}
+
 .page-container {
     margin: 20px;
 }
 
 .project-detail {
-    display: flex;
     text-align: left;
 }
 
 .work-list {
-
 }
 
 .comment-list {
-
 }
+
+.more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.card {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+}
+

@@ -10,7 +10,8 @@ import { Project } from "../data_model/project";
 export class ProjectComponent implements OnInit {
 
   constructor(private projectService: ProjectService) { }
-
+  workColumns: string[] = ['content', 'status']
+  commentColumns: string[] = ['author', 'comment']
   project: Project | undefined;
 
   getProject(): void {
