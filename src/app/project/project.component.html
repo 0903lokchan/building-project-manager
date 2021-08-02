@@ -1,1 +1,98 @@
-<p>project works!</p>
+<div class="page-container">
+    <mat-card *ngIf="project">
+        <mat-card-header>
+            <mat-card-title>
+                {{project.name | uppercase}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{project.status}}
+            </mat-card-subtitle>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item>Edit</button>
+                <button mat-menu-item>Button 2</button>
+            </mat-menu>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-grid-list cols="2">
+                <mat-grid-tile colspan=2>
+                    <mat-card class="card project-detail mat-elevation-z5">
+                        <mat-card-content>
+                            <table>
+                                <tr>
+                                    <th>Start date:</th>
+                                    <td>{{project.startDate}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Finish date:</th>
+                                    <td>{{project.finishDate}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Contact person:</th>
+                                    <td>{{project.contactPerson}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Project manager:</th>
+                                    <td>{{project.projectManager}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Contractor:</th>
+                                    <td>{{project.contractor}}</td>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card class="card work-list mat-elevation-z5">
+                        <mat-card-header>
+                            <mat-card-title>
+                                Work List
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <table mat-table [dataSource]="project.workList">
+                                <ng-container matColumnDef="content">
+                                    <th mat-header-cell *matHeaderCellDef>Work</th>
+                                    <td mat-cell *matCellDef="let work">{{work.content}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                                    <td mat-cell *matCellDef="let work">{{work.status}}</td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="workColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: workColumns;"></tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card class="card comment-list mat-elevation-z5">
+                        <mat-card-header>
+                            <mat-card-title>
+                                Comment List
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <table mat-table [dataSource]="project.commentList">
+                                <ng-container matColumnDef="author">
+                                    <th mat-header-cell *matHeaderCellDef>User</th>
+                                    <td mat-cell *matCellDef="let comment">{{comment.author}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="comment">
+                                    <th mat-header-cell *matHeaderCellDef>Comment</th>
+                                    <td mat-cell *matCellDef="let comment">{{comment.content}}</td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="commentColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: commentColumns;"></tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

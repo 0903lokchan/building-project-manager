@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { ProjectComponent } from './project/project.component';
+import { MatTableModule } from "@angular/material/table";
 
 // for directory
 import { FilterPipe } from "./directory/filter.pipe";
@@ -50,7 +51,8 @@ import { FilterPipe } from "./directory/filter.pipe";
     MatCardModule,
     MatMenuModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

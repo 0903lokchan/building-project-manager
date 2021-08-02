@@ -1,9 +1,9 @@
 export enum WorkStatus {
-    Done,
-    Ongoing,
-    Scheduled,
-    Postponed,
-    Cancelled
+    Done = "Done",
+    Ongoing = "Ongoing",
+    Scheduled = "Scheduled",
+    Postponed = "Postponed",
+    Cancelled = "Cancelled"
 }
 
 export interface Work {
