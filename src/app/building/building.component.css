@@ -13,3 +13,7 @@ table, th, td {
   div {
     background-image: url('http://www.buildingguide.co.nz/wp-content/uploads/2015/04/building.jpg');
   }
+  .evt{
+    height:50px;
+    width:100px;
+  }
