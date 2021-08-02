@@ -1,1 +1,57 @@
-<p>building works!</p>
+<!DOCTYPE html>
+
+<html>
+  
+  <style> 
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+    #t01 {
+      width: 100%;    
+      background-color: #f1f1c1;
+    }
+    div {
+      background-image: url('http://www.buildingguide.co.nz/wp-content/uploads/2015/04/building.jpg');
+    }
+  </style>
+  <script>
+  </script>  
+  <head>
+    <title>Building Application</title>
+  </head>
+  <body>
+  <div>
+      <h1>Building details</h1>
+      <p>This building contains info xyz</p>
+      <h2>Project List</h2>
+      <caption>List Of Project</caption>
+  </div>
+<table style="width:100%", id="t01">
+  <tr>
+    <th>Project</th>
+    <th>Details</th>
+    <th>View</th>
+  </tr>
+  <tr>
+    <td>Project a</td>
+    <td>Roof</td>
+    <td>
+      <input type="Submit" value = "View">
+    </td>
+  </tr>
+  <tr>
+    <td>Project b</td>
+    <td>{{build}}</td>
+    <td>
+       <input type="Submit" value = "View">
+    </td>
+  </tr>
+</table>
+  
+</body>
+</html>
