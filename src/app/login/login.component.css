@@ -1,8 +1,30 @@
-div {
-    background-image: url('http://www.buildingguide.co.nz/wp-content/uploads/2015/04/building.jpg');
+.log {
+  background-image: url("http://www.buildingguide.co.nz/wp-content/uploads/2015/04/building.jpg");
+  text-align: center;
+  position: relative;
+  display: table-cell;
+  width: 500px;
+  height: 300px;
+  padding: 10px;
+  vertical-align: middle;
 }
-  
+
 h1 {
-    color: blue;
-    margin-right: 30px;
-  }
+  color: blue;
+  margin-right: 30px;
+}
+
+label {
+  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s,
+    left 0.2s;
+  position: relative;
+  color: rgb(105, 16, 247);
+  padding: 7px 6px;
+}
+.header{
+    padding: 60px;
+    text-align: center;
+    color: rgb(2, 2, 2);
+    font-size: 60px;
+
+}
