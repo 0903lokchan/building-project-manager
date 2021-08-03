@@ -12,6 +12,7 @@ table, th, td {
   }
   .info {
       background-image: url('http://www.buildingguide.co.nz/wp-content/uploads/2015/04/building.jpg');
+      background-size: cover;
   }
   .evt{
     height:20px;
@@ -39,6 +40,7 @@ table, th, td {
 }
 .list{
   background-image: url('https://handsontek.net/images/SharePoint/List%20View%20Templates/hero.png');
+  background-size: cover;
   text-align: center;
   display: grid;
   height: 100%;

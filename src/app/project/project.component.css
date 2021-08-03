@@ -9,6 +9,7 @@ table {
 .project-detail {
     text-align: left;
     background-image: url("https://www.nanogune.eu/sites/default/files/project.png");
+    background-size: cover;
     display: grid;
     height: 100%;
 }
