@@ -25,6 +25,7 @@ import { MatTableModule } from "@angular/material/table";
 
 // for directory
 import { FilterPipe } from "./directory/filter.pipe";
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FilterPipe } from "./directory/filter.pipe";
     DirectoryComponent,
     BuildingComponent,
     ProjectComponent,
-    FilterPipe //filter for directory
+    FilterPipe,
+    MainComponent //filter for directory
   ],
   imports: [
     BrowserModule,
