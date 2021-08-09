@@ -27,13 +27,13 @@
       <div class="header">
         <h2>Building Website</h2>
       </div>
-      <form method="GET" action="../building/building.component.html">
+      <form [formGroup]="loginForm">
         <label for="UserName">User Name:</label>
-        <input type="text" id="userName" placeholder="eg : long17"><br>
+        <input type="text" id="username" placeholder="eg : long17" formControlName="username"><br>
         <label for="Password">Password:</label>
-        <input type="text" id="password" placeholder="eg : Any"><br>
+        <input type="text" id="password" placeholder="eg : Any" formControlName="password"><br>
         <br>
-        <input type="Submit" value = "Login">
+        <input type="submit" (click)="login()" value = "Login">
         <input type="Reset" value="Reset">
         <button type="button">Cancel</button>
       </form> 
