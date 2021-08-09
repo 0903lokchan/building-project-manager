@@ -9,6 +9,8 @@
       <a mat-list-item routerLink="directory">Directory</a>
       <a mat-list-item routerLink="building">Building</a>
       <a mat-list-item routerLink="project">Project</a>
+      <p mat-list-item *ngIf="user">{{user.username}}</p>
+      <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
