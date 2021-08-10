@@ -12,7 +12,9 @@ export class ProjectComponent implements OnInit {
   constructor(private projectService: ProjectService) { }
   workColumns: string[] = ['content', 'status']
   commentColumns: string[] = ['author', 'comment']
-  project: Project | undefined;
+  project!: Project;
+  editMode: boolean = false;
+  editProject!: Project;
 
   getProject(): void {
     this.projectService.getProject(1)
@@ -21,6 +23,22 @@ export class ProjectComponent implements OnInit {
       });
   }
 
+  toggleEdit(): void {
+    this.editProject = { ...this.project }
+    this.editMode = true;
+  }
+
+  revert(): void {
+    this.editProject = { ...this.project }
+  }
+
+  update(): void { }
+  
+  archive(): void { }
+  
+  open(): void { }
+
+  close(): void { }
 
   ngOnInit(): void {
     this.getProject();

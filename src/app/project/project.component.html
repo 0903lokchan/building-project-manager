@@ -11,8 +11,12 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>Edit</button>
-                <button mat-menu-item>Button 2</button>
+                <button mat-menu-item (click)="toggleEdit()">{{editMode? "Quit edit":"Edit"}}</button>
+                <button mat-menu-item (click)="revert()">Revert</button>
+                <button mat-menu-item (click)="revert()">Update</button>
+                <button mat-menu-item (click)="open()">Open</button>
+                <button mat-menu-item (click)="archive()">Archive</button>
+                <button mat-menu-item (click)="close()">Close</button>
             </mat-menu>
         </mat-card-header>
         <mat-card-content>
@@ -23,23 +27,28 @@
                             <table>
                                 <tr>
                                     <th>Start date:</th>
-                                    <td>{{project.startDate}}</td>
+                                    <td *ngIf="!editMode">{{project.startDate}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject.startDate"></td>
                                 </tr>
                                 <tr>
                                     <th>Finish date:</th>
-                                    <td>{{project.finishDate}}</td>
+                                    <td *ngIf="!editMode">{{project.finishDate}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject.finishDate"></td>
                                 </tr>
                                 <tr>
                                     <th>Contact person:</th>
-                                    <td>{{project.contactPerson}}</td>
+                                    <td *ngIf="!editMode">{{project.contactPerson}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject.contactPerson"></td>
                                 </tr>
                                 <tr>
                                     <th>Project manager:</th>
-                                    <td>{{project.projectManager}}</td>
+                                    <td *ngIf="!editMode">{{project.projectManager}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject.projectManager"></td>
                                 </tr>
                                 <tr>
                                     <th>Contractor:</th>
-                                    <td>{{project.contractor}}</td>
+                                    <td *ngIf="!editMode">{{project.contractor}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject.contractor"></td>
                                 </tr>
                             </table>
                         </mat-card-content>
