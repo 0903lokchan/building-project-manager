@@ -31,6 +31,9 @@
                     <th>Details</th>
                     <th>Action</th>
                   </tr>
+                  <tr *ngFor="let project of projects" >
+                      <td>{{project.name}}</td>
+                  </tr>
                   <tr>
                     <td>Project a</td>
                     <td>Roof</td>
