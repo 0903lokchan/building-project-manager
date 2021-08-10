@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 	user: User | undefined;
 	loginForm: FormGroup;
 
+	// ask about how router work?
 	constructor (private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
 		this.loginForm = this.formBuilder.group({
 			username: [ '' ],
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	login () {
+		this.validateForm();
 		const loginRequest: LoginRequest = {
 			username: this.form.username.value,
 			password: this.form.password.value
@@ -35,8 +37,22 @@ export class LoginComponent implements OnInit {
 
 		this.authService.login(loginRequest).subscribe((user) => {
 			if (user) {
+				// use router to go to main
 				this.router.navigate([ 'main' ]);
+			} else {
+				alert(" invalid username or password");
 			}
 		});
+	}
+	validateForm(){
+		var x = (<HTMLInputElement>document.getElementById("username")).value;
+		var y = (<HTMLInputElement>document.getElementById("password")).value;
+		if (x == ""){
+			alert("username must be filled out");
+			return;
+		} else if (y == ""){
+			alert("Password must be filled out");
+			return;
+		}
 	}
 }
