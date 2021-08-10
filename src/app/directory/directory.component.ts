@@ -25,6 +25,9 @@ export class DirectoryComponent implements OnInit{
     this.directoryService.getBuildings()
       .subscribe(buildings => {
         this.cards = buildings.map(building => {
+          if (!building.name) {
+            building.name = building.address;
+          }
           return {title: building.name, cols: 1, rows: 1, data: building}
         });
       });
