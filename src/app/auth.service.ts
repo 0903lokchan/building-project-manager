@@ -29,8 +29,8 @@ export class AuthService {
 		this.currentUser = undefined;
 	}
 
-	isLoggedIn$ (): Observable<boolean> {
-		return of(this.currentUser == undefined);
+	isLoggedIn (): boolean {
+		return this.currentUser != undefined;
 	}
 
 	getCurrentUser$ (): Observable<User | undefined> {
