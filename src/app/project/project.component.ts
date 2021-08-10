@@ -3,6 +3,7 @@ import { ProjectService } from "../project.service";
 import { Project, ProjectStatus } from "../data_model/project";
 import { AuthService } from '../auth.service';
 import { User } from '../data_model/user';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -11,7 +12,7 @@ import { User } from '../data_model/user';
 })
 export class ProjectComponent implements OnInit {
 
-  constructor(private projectService: ProjectService, private authService: AuthService) { }
+  constructor(private projectService: ProjectService, private authService: AuthService, private route: ActivatedRoute) { }
   workColumns: string[] = ['content', 'status']
   commentColumns: string[] = ['author', 'comment']
   project!: Project;
@@ -19,11 +20,13 @@ export class ProjectComponent implements OnInit {
   editProject?: Project;
   currentUser!: User;
 
-  getProject(): void {
-    this.projectService.getProject(1)
+  getProject(id: string | null): void {
+    if (id) {
+      this.projectService.getProject(id)
       .subscribe(project => {
         this.project = project;
       });
+    }
   }
 
   toggleEdit(): void {
@@ -57,8 +60,9 @@ export class ProjectComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getProject();
     this.authService.getCurrentUser$().subscribe(user => { if (user) { this.currentUser = user } })
+    const projectID = this.route.snapshot.paramMap.get('id');
+    this.getProject(projectID);
   }
 
 }

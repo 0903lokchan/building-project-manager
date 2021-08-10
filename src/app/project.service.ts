@@ -10,8 +10,8 @@ export class ProjectService {
 
   constructor() { }
 
-  getProject(id: number): Observable<Project> {
-    const project = of(PROJECTS[id]);
-    return project;
+  getProject(id: string): Observable<Project> {
+    const project = PROJECTS.filter(project => project.id == id)[0]
+    return of(project);
   }
 }
