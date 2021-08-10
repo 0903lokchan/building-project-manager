@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from "../project.service";
-import { Project } from "../data_model/project";
+import { Project, ProjectStatus } from "../data_model/project";
 
 @Component({
   selector: 'app-project',
@@ -38,11 +38,20 @@ export class ProjectComponent implements OnInit {
 
   update(): void { }
   
-  archive(): void { }
+  archive(): void {
+    this.project.status = ProjectStatus.Closed;
+    // TODO call update service
+  }
   
-  open(): void { }
+  open(): void {
+    this.project.status = ProjectStatus.Current;
+    // TODO call update service
+   }
 
-  close(): void { }
+  close(): void {
+    this.project.status = ProjectStatus.Closed;
+    // TODO call update service
+   }
 
   ngOnInit(): void {
     this.getProject();
