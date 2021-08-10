@@ -20,5 +20,15 @@ export const USERS: User[] = [
 		username: 'contractor',
 		password: 'guesswhat',
 		type: 'contractor'
+	},
+	{
+		username: 'long17',
+		password: 'long',
+		type: 'manager'
+	},
+	{
+		username: 'lok',
+		password: 'lok=]',
+		type: 'owner'
 	}
 ];
