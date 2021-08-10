@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from "../project.service";
 import { Project, ProjectStatus } from "../data_model/project";
+import { AuthService } from '../auth.service';
+import { User } from '../data_model/user';
 
 @Component({
   selector: 'app-project',
@@ -9,12 +11,13 @@ import { Project, ProjectStatus } from "../data_model/project";
 })
 export class ProjectComponent implements OnInit {
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private authService: AuthService) { }
   workColumns: string[] = ['content', 'status']
   commentColumns: string[] = ['author', 'comment']
   project!: Project;
   editMode: boolean = false;
   editProject?: Project;
+  currentUser!: User;
 
   getProject(): void {
     this.projectService.getProject(1)
@@ -55,6 +58,7 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProject();
+    this.authService.getCurrentUser$().subscribe(user => { if (user) { this.currentUser = user } })
   }
 
 }
