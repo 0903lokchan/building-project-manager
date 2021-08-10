@@ -14,7 +14,7 @@ export class ProjectComponent implements OnInit {
   commentColumns: string[] = ['author', 'comment']
   project!: Project;
   editMode: boolean = false;
-  editProject!: Project;
+  editProject?: Project;
 
   getProject(): void {
     this.projectService.getProject(1)
@@ -24,8 +24,12 @@ export class ProjectComponent implements OnInit {
   }
 
   toggleEdit(): void {
-    this.editProject = { ...this.project }
-    this.editMode = true;
+    this.editMode = !this.editMode;
+    if (this.editMode) {
+      this.editProject = { ...this.project }
+    } else {
+      delete this.editProject;
+    }
   }
 
   revert(): void {
