@@ -4,7 +4,7 @@ import { Comment } from "../data_model/comment";
 
 export const PROJECTS: Project[] = [
     {
-        id: 0,
+        id: '0',
         name: "project 1",
         status: ProjectStatus.Closed,
         startDate: "30Jul2021",
@@ -24,7 +24,7 @@ export const PROJECTS: Project[] = [
         ]
     },
     {
-        id: 1,
+        id: '1',
         name: "project 2",
         status: ProjectStatus.Current,
         startDate: "29Jul2021",
@@ -44,7 +44,7 @@ export const PROJECTS: Project[] = [
         ]
     },
     {
-        id: 2,
+        id: '2',
         name: "project 3",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
