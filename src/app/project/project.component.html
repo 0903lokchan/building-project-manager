@@ -11,9 +11,9 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item (click)="toggleEdit()">{{editMode? "Quit edit":"Edit"}}</button>
+                <button mat-menu-item *ngIf="!editMode" (click)="enterEdit()">Edit</button>
+                <button mat-menu-item *ngIf="editMode" (click)="exitEdit()">Exit edit</button>
                 <button mat-menu-item *ngIf="editMode" (click)="revert()">Revert</button>
-                <button mat-menu-item *ngIf="editMode" (click)="update()">Update</button>
                 <button mat-menu-item (click)="open()">Open</button>
                 <button mat-menu-item (click)="archive()">Archive</button>
                 <button mat-menu-item (click)="close()">Close</button>

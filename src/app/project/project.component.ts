@@ -30,37 +30,33 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  toggleEdit(): void {
-    this.editMode = !this.editMode;
-    if (this.editMode) {
-      this.editProject = { ...this.project };
-    } else {
-      delete this.editProject;
-    }
+  sendProject(project: Project): void {
+    this.projectService.updateProject(this.project).subscribe((success) => {
+      if (success) {
+        // TODO create and use message service
+        alert('Successfully updated project.');
+        this.getProject();
+      } else {
+        alert('Update failed.');
+      }
+    });
+  }
+
+  enterEdit(): void {
+    this.editMode = true;
+    this.editProject = { ...this.project };
   }
 
   revert(): void {
     this.editProject = { ...this.project };
   }
 
-  update(): void {
-    // TODO generate general confirm dialog as material dialogs
-    if (!confirm('Confirm update project?')) {
-      return;
+  exitEdit(): void {
+    if (confirm('Save changes?')) {
+      this.sendProject(this.editProject!);
     }
-    if (this.editProject) {
-      this.projectService
-        .updateProject(this.editProject)
-        .subscribe((success) => {
-          if (success) {
-            // TODO create and use message service
-            alert('Successfully updated project.');
-            this.getProject();
-          } else {
-            alert('Update failed.');
-          }
-        });
-    }
+    this.editMode = false;
+    delete this.editProject;
   }
 
   archive(): void {
@@ -68,14 +64,7 @@ export class ProjectComponent implements OnInit {
       return;
     }
     this.project.status = ProjectStatus.Closed;
-    this.projectService.updateProject(this.project).subscribe((success) => {
-      if (success) {
-        // TODO create and use message service
-        alert('Successfully updated project.');
-      } else {
-        alert('Update failed.');
-      }
-    });
+    this.sendProject(this.project);
   }
 
   open(): void {
@@ -83,14 +72,7 @@ export class ProjectComponent implements OnInit {
       return;
     }
     this.project.status = ProjectStatus.Current;
-    this.projectService.updateProject(this.project).subscribe((success) => {
-      if (success) {
-        // TODO create and use message service
-        alert('Successfully updated project.');
-      } else {
-        alert('Update failed.');
-      }
-    });
+    this.sendProject(this.project);
   }
 
   close(): void {
@@ -98,14 +80,7 @@ export class ProjectComponent implements OnInit {
       return;
     }
     this.project.status = ProjectStatus.Closed;
-    this.projectService.updateProject(this.project).subscribe((success) => {
-      if (success) {
-        // TODO create and use message service
-        alert('Successfully updated project.');
-      } else {
-        alert('Update failed.');
-      }
-    });
+    this.sendProject(this.project);
   }
 
   ngOnInit(): void {
