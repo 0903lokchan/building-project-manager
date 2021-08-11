@@ -14,4 +14,9 @@ export class ProjectService {
     const project = PROJECTS.filter(project => project.id == id)[0]
     return of(project);
   }
+
+  updateProject(project: Project): Observable<boolean> {
+    // TODO make HTTP request
+    return of(false);
+  }
 }
