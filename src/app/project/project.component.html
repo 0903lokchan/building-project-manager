@@ -69,7 +69,11 @@
                                 </ng-container>
                                 <ng-container matColumnDef="status">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td mat-cell *matCellDef="let work">{{work.status}}</td>
+                                    <td mat-cell *matCellDef="let work; let i = index;">
+                                        <select name="work-status" [(ngModel)]="project.workList[i].status">
+                                            <option *ngFor="let status of workStatus" [value]="status">{{status}}</option>
+                                        </select>
+                                    </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="workColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: workColumns;"></tr>

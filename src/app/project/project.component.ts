@@ -3,6 +3,7 @@ import { ProjectService } from '../project.service';
 import { Project, ProjectStatus } from '../data_model/project';
 import { AuthService } from '../auth.service';
 import { User } from '../data_model/user';
+import { WorkStatus } from "../data_model/work";
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -23,6 +24,8 @@ export class ProjectComponent implements OnInit {
   editMode: boolean = false;
   editProject?: Project;
   currentUser!: User;
+  // I know it's ugly but it's the only way I could make select in mat-table work
+  workStatus = [WorkStatus.Ongoing, WorkStatus.Cancelled, WorkStatus.Done, WorkStatus.Postponed, WorkStatus.Scheduled];
 
   getProject(): void {
     this.projectService.getProject(this.projectID).subscribe((project) => {
