@@ -73,11 +73,19 @@
                                         <select name="work-status" [(ngModel)]="project.workList[i].status">
                                             <option *ngFor="let status of workStatus" [value]="status">{{status}}</option>
                                         </select>
+                                        <button mat-icon-button color="accent" aria-label="delete work">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
                                     </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="workColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: workColumns;"></tr>
                             </table>
+                            <mat-card-actions>
+                                <button>
+                                    Create new work
+                                </button>
+                            </mat-card-actions>
                         </mat-card-content>
                     </mat-card>
                 </mat-grid-tile>
