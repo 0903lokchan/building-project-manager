@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTable } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { Comment } from '../data_model/comment';
 
 @Component({
   selector: 'app-project',
@@ -28,6 +29,7 @@ export class ProjectComponent implements OnInit {
   editProject?: Project;
   currentUser!: User;
   @ViewChild(MatTable) workList!: MatTable<Work>;
+  newCommentText?: string;
   // I know it's ugly but it's the only way I could make select in mat-table work
   workStatus = [
     WorkStatus.Ongoing,
@@ -131,6 +133,17 @@ export class ProjectComponent implements OnInit {
         this.workList.renderRows();
       }
     })
+  }
+
+  createComment(): void {
+    const project = { ...this.project }
+    const newComment: Comment = {
+      author: this.currentUser.username,
+      content: this.newCommentText!
+    }
+    project.commentList.push(newComment)
+    this.sendProject(project).subscribe()
+    delete this.newCommentText
   }
 
   ngOnInit(): void {

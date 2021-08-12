@@ -112,6 +112,15 @@
                                 <tr mat-row *matRowDef="let row; columns: commentColumns;"></tr>
                             </table>
                         </mat-card-content>
+                        <mat-card-actions>
+                            <mat-form-field>
+                                <mat-label>Create new comment</mat-label>
+                                <input matInput [(ngModel)]="newCommentText">
+                                <button *ngIf="newCommentText" matSuffix mat-icon-button (click)="createComment()">
+                                    <mat-icon>send</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </mat-card-actions>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
