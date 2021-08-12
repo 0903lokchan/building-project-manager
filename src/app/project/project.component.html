@@ -70,10 +70,12 @@
                                 <ng-container matColumnDef="status">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
                                     <td mat-cell *matCellDef="let work; let i = index;">
-                                        <select name="work-status" [(ngModel)]="project.workList[i].status">
+                                        <select name="work-status" 
+                                        [(ngModel)]="project.workList[i].status" 
+                                        (change)="changeWorkStatus()">
                                             <option *ngFor="let status of workStatus" [value]="status">{{status}}</option>
                                         </select>
-                                        <button mat-icon-button color="accent" aria-label="delete work">
+                                        <button mat-icon-button color="accent" (click)="deleteWork(i)" aria-label="delete work">
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                     </td>
@@ -82,7 +84,7 @@
                                 <tr mat-row *matRowDef="let row; columns: workColumns;"></tr>
                             </table>
                             <mat-card-actions>
-                                <button>
+                                <button (click)="createWork()">
                                     Create new work
                                 </button>
                             </mat-card-actions>
