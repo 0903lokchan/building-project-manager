@@ -11,12 +11,14 @@ export class ProjectService {
   constructor() { }
 
   getProject(id: string): Observable<Project> {
-    const project = PROJECTS.filter(project => project.id == id)[0]
-    return of(project);
+    const storedProject = localStorage.getItem('project')
+    const project: Project[] = storedProject? JSON.parse(storedProject) : PROJECTS
+    return of(project!.filter(project => project.id == id)[0]);
   }
 
   updateProject(project: Project): Observable<boolean> {
     // TODO make HTTP request
-    return of(false);
+    localStorage.setItem('project', JSON.stringify(project))
+    return of(true);
   }
 }
