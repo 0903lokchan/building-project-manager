@@ -2,33 +2,33 @@ import { User } from '../data_model/user';
 
 export const USERS: User[] = [
 	{
-		username: 'testUser',
-		password: 'test',
-		type: 'test'
+		LoginName: 'testUser',
+		Password: 'test',
+		UserType: 'test'
 	},
 	{
-		username: 'manager',
-		password: 'password',
-		type: 'manager'
+		LoginName: 'manager',
+		Password: 'password',
+		UserType: 'manager'
 	},
 	{
-		username: 'owner',
-		password: 'password',
-		type: 'owner'
+		LoginName: 'owner',
+		Password: 'password',
+		UserType: 'owner'
 	},
 	{
-		username: 'contractor',
-		password: 'guesswhat',
-		type: 'contractor'
+		LoginName: 'contractor',
+		Password: 'guesswhat',
+		UserType: 'contractor'
 	},
 	{
-		username: 'long17',
-		password: 'long',
-		type: 'manager'
+		LoginName: 'long17',
+		Password: 'long',
+		UserType: 'manager'
 	},
 	{
-		username: 'lok',
-		password: 'lok=]',
-		type: 'owner'
+		LoginName: 'lok',
+		Password: 'lok=]',
+		UserType: 'owner'
 	}
 ];

@@ -13,7 +13,6 @@ import { User } from '../data_model/user';
 export class LoginComponent implements OnInit {
 	user: User | undefined;
 	loginForm: FormGroup;
-
 	// ask about how router work?
 	constructor (private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
 		this.loginForm = this.formBuilder.group({
@@ -39,6 +38,7 @@ export class LoginComponent implements OnInit {
 			if (user) {
 				// use router to go to main
 				this.router.navigate([ 'main' ]);
+
 			} else {
 				alert(" invalid username or password");
 			}
@@ -55,4 +55,6 @@ export class LoginComponent implements OnInit {
 			return;
 		}
 	}
+	
+	
 }

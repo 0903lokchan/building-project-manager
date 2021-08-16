@@ -15,9 +15,10 @@ export class AuthService {
 
 	login (loginRequest: LoginRequest): Observable<User | undefined> {
 		// const users = this.getUsers()
-		const users = USERS;
+		const users: User[] = JSON.parse(this.httpGetUserList()).users;
+		console.log(users)
 		const user = users.filter(
-			(user) => user.username === loginRequest.username && user.password === loginRequest.password
+			(user) => user.LoginName === loginRequest.username && user.Password === loginRequest.password
 		);
 		if (user.length == 1) {
 			this.currentUser = user[0];
@@ -44,4 +45,13 @@ export class AuthService {
 		}
 		return users ? JSON.parse(users) : [];
 	}
+
+	httpGetUserList(){
+		var theUrl = 'https://happybuildings.sim.vuw.ac.nz/api/dongpham/user_list.json'
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+		xmlHttp.send( null );
+		
+		return xmlHttp.responseText;
+		}
 }
