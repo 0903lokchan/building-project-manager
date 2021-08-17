@@ -33,16 +33,14 @@ export class LoginComponent implements OnInit {
 			username: this.form.username.value,
 			password: this.form.password.value
 		};
+		const isLoggedIn = this.authService.login(loginRequest);
+		if (isLoggedIn) {
+			// use router to go to main
+			this.router.navigate([ 'main' ]);
 
-		this.authService.login(loginRequest).subscribe((user) => {
-			if (user) {
-				// use router to go to main
-				this.router.navigate([ 'main' ]);
-
-			} else {
-				alert(" invalid username or password");
-			}
-		});
+		} else {
+			alert(" invalid username or password");
+		}
 	}
 	validateForm(){
 		var x = (<HTMLInputElement>document.getElementById("username")).value;
