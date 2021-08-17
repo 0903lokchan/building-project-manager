@@ -138,7 +138,7 @@ export class ProjectComponent implements OnInit {
   createComment(): void {
     const project = { ...this.project }
     const newComment: Comment = {
-      author: this.currentUser.username,
+      author: this.currentUser.LoginName,
       content: this.newCommentText!
     }
     project.commentList.push(newComment)
@@ -153,9 +153,9 @@ export class ProjectComponent implements OnInit {
       } else {
         //test user
         this.currentUser = {
-          username: 'manager',
-          password: 'password',
-          type: 'manager',
+          LoginName: 'manager',
+          Password: 'password',
+          UserType: 'manager',
         };
       }
     });
