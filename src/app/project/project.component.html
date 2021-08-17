@@ -71,20 +71,22 @@
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
                                     <td mat-cell *matCellDef="let work; let i = index;">
                                         <select name="work-status" 
+                                        *ngIf="isManager"
                                         [(ngModel)]="project.workList[i].status" 
                                         (change)="changeWorkStatus()">
                                             <option *ngFor="let status of workStatus" [value]="status">{{status}}</option>
                                         </select>
-                                        <button mat-icon-button color="accent" (click)="deleteWork(i)" aria-label="delete work">
+                                        <button mat-icon-button *ngIf="isManager" color="accent" (click)="deleteWork(i)" aria-label="delete work">
                                             <mat-icon>delete</mat-icon>
                                         </button>
+                                        <span *ngIf="!isManager">{{work.status}}</span>
                                     </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="workColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: workColumns;"></tr>
                             </table>
                             <mat-card-actions>
-                                <button (click)="createWork()">
+                                <button *ngIf="isManager" (click)="createWork()">
                                     Create new work
                                 </button>
                             </mat-card-actions>

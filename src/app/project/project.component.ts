@@ -28,6 +28,8 @@ export class ProjectComponent implements OnInit {
   editMode: boolean = false;
   editProject?: Project;
   currentUser!: User;
+  isManager: boolean = this.currentUser?.UserType == "manager"
+
   @ViewChild(MatTable) workList!: MatTable<Work>;
   newCommentText?: string;
   // I know it's ugly but it's the only way I could make select in mat-table work
