@@ -6,6 +6,7 @@ import { DirectoryComponent } from './directory/directory.component';
 import { BuildingComponent } from './building/building.component';
 import { ProjectComponent } from './project/project.component';
 import { MainComponent } from './main/main.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
 	{
 		path: 'main',
 		component: MainComponent,
+		canActivate: [AuthGuard],
 		children: [
 			{ path: '', redirectTo: 'directory', pathMatch: 'full' },
 			{ path: 'directory', component: DirectoryComponent },

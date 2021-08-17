@@ -11,9 +11,9 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item (click)="toggleEdit()">{{editMode? "Quit edit":"Edit"}}</button>
+                <button mat-menu-item *ngIf="!editMode" (click)="enterEdit()">Edit</button>
+                <button mat-menu-item *ngIf="editMode" (click)="exitEdit()">Exit edit</button>
                 <button mat-menu-item *ngIf="editMode" (click)="revert()">Revert</button>
-                <button mat-menu-item *ngIf="editMode" (click)="update()">Update</button>
                 <button mat-menu-item (click)="open()">Open</button>
                 <button mat-menu-item (click)="archive()">Archive</button>
                 <button mat-menu-item (click)="close()">Close</button>
@@ -69,11 +69,25 @@
                                 </ng-container>
                                 <ng-container matColumnDef="status">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td mat-cell *matCellDef="let work">{{work.status}}</td>
+                                    <td mat-cell *matCellDef="let work; let i = index;">
+                                        <select name="work-status" 
+                                        [(ngModel)]="project.workList[i].status" 
+                                        (change)="changeWorkStatus()">
+                                            <option *ngFor="let status of workStatus" [value]="status">{{status}}</option>
+                                        </select>
+                                        <button mat-icon-button color="accent" (click)="deleteWork(i)" aria-label="delete work">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="workColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: workColumns;"></tr>
                             </table>
+                            <mat-card-actions>
+                                <button (click)="createWork()">
+                                    Create new work
+                                </button>
+                            </mat-card-actions>
                         </mat-card-content>
                     </mat-card>
                 </mat-grid-tile>
@@ -98,6 +112,15 @@
                                 <tr mat-row *matRowDef="let row; columns: commentColumns;"></tr>
                             </table>
                         </mat-card-content>
+                        <mat-card-actions>
+                            <mat-form-field>
+                                <mat-label>Create new comment</mat-label>
+                                <input matInput [(ngModel)]="newCommentText">
+                                <button *ngIf="newCommentText" matSuffix mat-icon-button (click)="createComment()">
+                                    <mat-icon>send</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </mat-card-actions>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
