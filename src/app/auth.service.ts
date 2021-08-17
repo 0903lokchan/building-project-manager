@@ -28,9 +28,7 @@ export class AuthService {
 	}
 
 	login (loginRequest: LoginRequest): boolean {
-		// const users = this.getUsers()
-		const users: User[] = JSON.parse(this.httpGetUserList()).users;
-		console.log(users)
+		const users: User[] = this.getUsers()
 		const user = users.filter(
 			(user) => user.LoginName === loginRequest.username && user.Password === loginRequest.password
 		);
@@ -53,12 +51,20 @@ export class AuthService {
 		return of(this.getUser());
 	}
 
-	getUsers (): User[] {
+	getUsers(): User[] {
+		// retrieve from local storage
 		var users = localStorage.getItem('users');
-		if (!users) {
-			// TODO http get users
+		if (users) {
+			return JSON.parse(users)
 		}
-		return users ? JSON.parse(users) : [];
+		// retrieve from API
+		users = this.httpGetUserList();
+		try {
+			return JSON.parse(users).users;
+		} catch (error) {
+			// if anything happens, return empty list
+			return []
+		}
 	}
 
 	httpGetUserList(){
