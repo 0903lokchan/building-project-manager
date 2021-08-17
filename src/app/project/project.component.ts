@@ -7,7 +7,7 @@ import { Work, WorkStatus } from '../data_model/work';
 import { ActivatedRoute } from '@angular/router';
 import { MatTable } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Comment } from '../data_model/comment';
 
 @Component({
@@ -43,7 +43,18 @@ export class ProjectComponent implements OnInit {
 
   getProject(): void {
     this.projectService.getProject(this.projectID).subscribe((project) => {
-      this.project = project;
+      this.project = project ? project : {
+        id: '0',
+        name: 'dummy project',
+        startDate: '08Jul2021',
+        finishDate: '17Aug2021',
+        projectManager: 'manager',
+        contactPerson: 'contact person',
+        contractor: 'contractor',
+        status: ProjectStatus.Current,
+        workList: [],
+        commentList: []
+      }
     });
   }
 
