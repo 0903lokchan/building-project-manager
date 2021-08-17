@@ -9,41 +9,62 @@ import { USERS } from './mock_data/mock_users';
 })
 export class AuthService {
 	private readonly USER_API = '';
+	private readonly storageKey = 'currentUser';
 	private currentUser: User | undefined;
 
-	constructor () {}
+	constructor() { }
+	
+	private getUser(): User {
+		return JSON.parse(sessionStorage.getItem(this.storageKey) || "null")
+	}
 
-	login (loginRequest: LoginRequest): Observable<User | undefined> {
-		// const users = this.getUsers()
-		const users: User[] = JSON.parse(this.httpGetUserList()).users;
-		console.log(users)
+
+	private setUser(user: User): void {
+		sessionStorage.setItem(this.storageKey, JSON.stringify(user))
+	}
+
+	private removeUser(): void {
+		sessionStorage.removeItem(this.storageKey)
+	}
+
+	login (loginRequest: LoginRequest): boolean {
+		const users: User[] = this.getUsers()
 		const user = users.filter(
 			(user) => user.LoginName === loginRequest.username && user.Password === loginRequest.password
 		);
 		if (user.length == 1) {
-			this.currentUser = user[0];
+			this.setUser(user[0])
+			return true;
 		}
-		return of(this.currentUser);
+		return false;
 	}
 
 	logout () {
-		this.currentUser = undefined;
+		this.removeUser()
 	}
 
 	isLoggedIn (): boolean {
-		return this.currentUser != undefined;
+		return this.getUser != null;
 	}
 
 	getCurrentUser$ (): Observable<User | undefined> {
-		return of(this.currentUser);
+		return of(this.getUser());
 	}
 
-	getUsers (): User[] {
+	getUsers(): User[] {
+		// retrieve from local storage
 		var users = localStorage.getItem('users');
-		if (!users) {
-			// TODO http get users
+		if (users) {
+			return JSON.parse(users)
 		}
-		return users ? JSON.parse(users) : [];
+		// retrieve from API
+		users = this.httpGetUserList();
+		try {
+			return JSON.parse(users).users;
+		} catch (error) {
+			// if anything happens, return empty list
+			return []
+		}
 	}
 
 	httpGetUserList(){
