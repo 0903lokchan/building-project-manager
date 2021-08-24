@@ -1,83 +1,74 @@
 import { Injectable } from '@angular/core';
 import { Project } from './data_model/project';
-import { PROJECTS } from './mock_data/mock_project';
 import { Observable, of } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-const USE_MOCK: boolean = true;
-const STORAGE_KEY: string = "projects";
+import { catchError, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getProjects(): Project[] {
-    // retrieve session storage
-    const storedProjects = sessionStorage.getItem('projects');
-    if (storedProjects) {
-      return JSON.parse(storedProjects);
-    }
-    // use mock data
-    if (USE_MOCK) {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(PROJECTS))
-      return PROJECTS;
-    }
-    // retrieve from API
-    const projects = this.httpGetProjects()
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
-    return projects;
+  private projectsApi = 'api/projects';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+  
+  getProject(id: string): Observable<Project> {
+    const url = `${this.projectsApi}/${id}`;
+    return this.http.get<Project>(url).pipe(
+      tap((_) => this.log(`fetched project id=$(id)`)),
+      catchError(this.handleError<Project>(`httpGetProject id=${id}`))
+    );
   }
 
-  setProjects(projects: Project[]): void {
-    if (USE_MOCK) {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-    } else {
-      // update session storage when request was successful
-      if (this.httpSetProjects(projects)) {
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-      }
-    }
+  getProjects(): Observable<Project[]> {
+    return this.http
+      .get<Project[]>(this.projectsApi)
+      .pipe(catchError(this.handleError<Project[]>('httpGetProjects', [])));
   }
 
-  getProject(id: string): Observable<Project | null> {
-    const project = this.getProjects().filter((project) => project.id == id);
-    if (project.length == 1) {
-      return of(project[0]);
-    }
-    return of(null);
+  updateProject(project: Project): Observable<any> {
+    return this.http.put(this.projectsApi, project, this.httpOptions).pipe(
+      tap((_) => this.log(`updated project id=${project.id}`)),
+      catchError(this.handleError<any>('updateProject'))
+    );
   }
 
-  updateProject(project: Project): Observable<boolean> {
-    try {
-      const projects = this.getProjects();
-      const id = projects.findIndex((proj) => proj.id == project.id);
-      if (id == -1) {
-        // create project
-        projects.push(project);
-      } else {
-        // update project
-        projects[id] = project;
-      }
-      this.setProjects(projects)
-      return of(true);
-    } catch (e) {
-      return of(false);
-    }
+  addProject(project: Project): Observable<Project> {
+    return this.http
+      .post<Project>(this.projectsApi, project, this.httpOptions)
+      .pipe(
+        tap((newProject: Project) =>
+          this.log(`added project w/ id=${newProject.id}`)
+        ),
+        catchError(this.handleError<Project>('addProject'))
+      );
   }
 
-  httpGetProjects(): Project[] {
-    // TODO make HTTP request
-    return [];
+  deleteProject(id: string): Observable<Project> {
+    const url = `${this.projectsApi}/${id}`;
+
+    return this.http.delete<Project>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted project id=${id}`)),
+      catchError(this.handleError<Project>('deleteProject'))
+    );
   }
 
-  httpSetProjects(projects: Project[]): boolean {
-    // TODO make HTTP request
-    try {
-      return true;
-    } catch (error) {
-      return false;
-    }
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(error);
+
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Go on with empty result
+      return of(result as T);
+    };
+  }
+
+  private log(message: string) {
+    // TODO use message service instead
+    alert(message);
   }
 }
