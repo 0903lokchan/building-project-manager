@@ -23,6 +23,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { ProjectComponent } from './project/project.component';
 import { MatTableModule } from "@angular/material/table";
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+import { InMemoryDataService } from "./in-memory-data.service";
 
 // for directory
 import { FilterPipe } from "./directory/filter.pipe";
@@ -46,6 +48,13 @@ import { MainComponent } from './main/main.component';
     LayoutModule,
     FormsModule,
     HttpClientModule,
+
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    ),
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
