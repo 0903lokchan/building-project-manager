@@ -18,7 +18,7 @@ export class ProjectService {
   getProject(id: string): Observable<Project> {
     const url = `${this.projectsApi}/${id}`;
     return this.http.get<Project>(url).pipe(
-      tap((_) => this.log(`fetched project id=$(id)`)),
+      tap((_) => this.log(`fetched project id=${id}`)),
       catchError(this.handleError<Project>(`httpGetProject id=${id}`))
     );
   }

@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Project, ProjectStatus } from '../data_model/project';
 import { AuthService } from '../auth.service';
 import { User } from '../data_model/user';
-import { Work, WorkStatus } from '../data_model/work';
+import { WorkStatus } from '../data_model/work';
 import { ActivatedRoute } from '@angular/router';
-import { MatTable } from '@angular/material/table';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { Comment } from '../data_model/comment';
 
 @Component({
@@ -28,9 +25,8 @@ export class ProjectComponent implements OnInit {
   editMode: boolean = false;
   editProject?: Project;
   currentUser!: User;
-  isManager: boolean = this.currentUser?.UserType == "manager"
+  isManager!: boolean;
 
-  @ViewChild(MatTable) workList!: MatTable<Work>;
   newCommentText?: string;
   // I know it's ugly but it's the only way I could make select in mat-table work
   workStatus = [
@@ -58,18 +54,12 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  sendProject(project: Project): Observable<boolean> {
-    return this.projectService.updateProject(project).pipe(
-      tap(success => {
-        if (success) {
-          // TODO create and use message service
-          alert('Successfully updated project.');
-          this.getProject();
-        } else {
-          alert('Update failed.');
-        }
+  sendProject(project: Project): void {
+    this.projectService.updateProject(project)
+      .subscribe(project => {
+        console.log(project);
+        this.getProject()
       })
-    )
   }
 
   enterEdit(): void {
@@ -83,7 +73,7 @@ export class ProjectComponent implements OnInit {
 
   exitEdit(): void {
     if (confirm('Save changes?')) {
-      this.sendProject(this.editProject!).subscribe();
+      this.sendProject(this.editProject!);
     }
     this.editMode = false;
     delete this.editProject;
@@ -95,7 +85,7 @@ export class ProjectComponent implements OnInit {
     }
     const project = { ...this.project }
     project.status = ProjectStatus.Closed
-    this.sendProject(project).subscribe();
+    this.sendProject(project);
   }
 
   open(): void {
@@ -104,7 +94,7 @@ export class ProjectComponent implements OnInit {
     }
     const project = { ...this.project }
     project.status = ProjectStatus.Current
-    this.sendProject(project).subscribe();
+    this.sendProject(project);
   }
 
   close(): void {
@@ -113,7 +103,7 @@ export class ProjectComponent implements OnInit {
     }
     const project = { ...this.project }
     project.status = ProjectStatus.Closed
-    this.sendProject(project).subscribe();
+    this.sendProject(project);
   }
 
   createWork(): void {
@@ -123,29 +113,17 @@ export class ProjectComponent implements OnInit {
       content: newWork,
       status: WorkStatus.Scheduled,
     });
-    this.sendProject(project).subscribe(success => {
-      if (success) {
-        this.workList.renderRows();
-      }
-    })
+    this.sendProject(project)
   }
 
   deleteWork(id: number): void {
     const project = {...this.project}
     project.workList.splice(id, 1);
-    this.sendProject(project).subscribe(success => {
-      if (success) {
-        this.workList.renderRows();
-      }
-    })
+    this.sendProject(project)
   }
 
   changeWorkStatus(): void {
-    this.sendProject(this.project).subscribe(success => {
-      if (success) {
-        this.workList.renderRows();
-      }
-    })
+    this.sendProject(this.project)
   }
 
   createComment(): void {
@@ -155,7 +133,7 @@ export class ProjectComponent implements OnInit {
       content: this.newCommentText!
     }
     project.commentList.push(newComment)
-    this.sendProject(project).subscribe()
+    this.sendProject(project)
     delete this.newCommentText
   }
 
@@ -163,6 +141,7 @@ export class ProjectComponent implements OnInit {
     this.authService.getCurrentUser$().subscribe((user) => {
       if (user) {
         this.currentUser = user;
+        this.isManager = user.UserType == "manager"
       } else {
         //test user
         this.currentUser = {
