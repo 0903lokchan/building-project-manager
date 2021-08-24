@@ -3,18 +3,19 @@ import { Project } from './data_model/project';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _snackbar: MatSnackBar) {}
 
   private projectsApi = 'api/projects';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  
+
   getProject(id: string): Observable<Project> {
     const url = `${this.projectsApi}/${id}`;
     return this.http.get<Project>(url).pipe(
@@ -51,7 +52,7 @@ export class ProjectService {
     const url = `${this.projectsApi}/${id}`;
 
     return this.http.delete<Project>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted project id=${id}`)),
+      tap((_) => this.log(`deleted project id=${id}`)),
       catchError(this.handleError<Project>('deleteProject'))
     );
   }
@@ -68,7 +69,8 @@ export class ProjectService {
   }
 
   private log(message: string) {
-    // TODO use message service instead
-    alert(message);
+    this._snackbar.open(message, 'Close', {
+      duration: 3000
+    })
   }
 }

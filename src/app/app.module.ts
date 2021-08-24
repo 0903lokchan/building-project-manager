@@ -25,6 +25,7 @@ import { MatTableModule } from "@angular/material/table";
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./in-memory-data.service";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 // for directory
 import { FilterPipe } from "./directory/filter.pipe";
@@ -66,7 +67,8 @@ import { MainComponent } from './main/main.component';
     MatMenuModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
