@@ -22,6 +22,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { ProjectComponent } from './project/project.component';
 import { MatTableModule } from "@angular/material/table";
+import { HttpClientModule } from '@angular/common/http';
 
 // for directory
 import { FilterPipe } from "./directory/filter.pipe";
@@ -44,6 +45,7 @@ import { MainComponent } from './main/main.component';
     BrowserAnimationsModule,
     LayoutModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
