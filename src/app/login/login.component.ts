@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoginRequest } from '../data_model/loginRequest';
 import { User } from '../data_model/user';
+import { MessageService } from '../message.service';
 
 @Component({
 	selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 	user: User | undefined;
 	loginForm: FormGroup;
 	// ask about how router work?
-	constructor (private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+	constructor (private authService: AuthService, private formBuilder: FormBuilder, private router: Router,private messageService: MessageService) {
 		this.loginForm = this.formBuilder.group({
 			username: [ '' ],
 			password: [ '' ]
@@ -39,17 +40,17 @@ export class LoginComponent implements OnInit {
 			this.router.navigate([ 'main' ]);
 
 		} else {
-			alert(" invalid username or password");
+			this.messageService.showMessage(" invalid username or password");
 		}
 	}
 	validateForm(){
 		var x = (<HTMLInputElement>document.getElementById("username")).value;
 		var y = (<HTMLInputElement>document.getElementById("password")).value;
 		if (x == ""){
-			alert("username must be filled out");
+			this.messageService.showMessage("username must be filled out");
 			return;
 		} else if (y == ""){
-			alert("Password must be filled out");
+			this.messageService.showMessage("Password must be filled out");
 			return;
 		}
 	}

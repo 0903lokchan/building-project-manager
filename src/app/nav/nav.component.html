@@ -9,11 +9,9 @@
   >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="../login">Login</a>
       <a mat-list-item routerLink="directory">Directory</a>
-      <a mat-list-item routerLink="building">Building</a>
+      <a mat-list-item routerLink="building/1">Building</a>
       <a mat-list-item routerLink="project/1">Project</a>
-      <p mat-list-item *ngIf="user">{{ user.LoginName }}</p>
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -29,6 +27,10 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>building-project-manager</span>
+      <span *ngIf="user" class="greeting">
+        Hello, {{ user.LoginName }}
+        <a mat-stroked-button (click)="logout()">Logout</a>
+      </span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

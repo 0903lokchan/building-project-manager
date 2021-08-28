@@ -13,11 +13,11 @@
     </div>
     <div class="container">
       <h2 style="text-align: center">Project List</h2>
-      <p> The project list is divided into three stage . They are ...</p>
+      <p>The project list is divided into three stage . They are ...</p>
     </div>
     <div class="list">
       <mat-card-content>
-        <mat-grid-list cols="3">
+        <mat-grid-list cols="4">
           <mat-grid-tile colspan="1">
             <mat-card class="card comment-list mat-elevation-z5">
               <mat-card-header>
@@ -31,19 +31,18 @@
                     <th>Details</th>
                     <th>Action</th>
                   </tr>
-                  <tr *ngFor="let project of projects" >
-                      <td>{{project.name}}</td>
-                      <td>Roof</td>
-                      <td>
-                        <button type="button">
-                          <a routerLink="../project/{{project.id}}">
-                            View
-                          </a>
-                        </button>
-                        <button type="button">Delete Project</button>
-                      </td>
+                  <tr *ngFor="let project of projectClose">
+                    <td>{{ project.name }}</td>
+                    <td>{{ buildingId }}</td>
+                    <td>
+                      <button type="button">
+                        <a routerLink="../../project/{{ project.id }}">
+                          View
+                        </a>
+                      </button>
+                      <button type="button">Delete Project</button>
+                    </td>
                   </tr>
-                  
                 </table>
               </mat-card-content>
             </mat-card>
@@ -61,19 +60,15 @@
                     <th>Details</th>
                     <th>Action</th>
                   </tr>
-                  <tr>
-                    <td>Project a</td>
+                  <tr *ngFor="let project of projectCurrent">
+                    <td>{{ project.name }}</td>
                     <td>Roof</td>
                     <td>
-                      <input type="Submit" value="View" />
-                      <button type="button">Delete Project</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Project b</td>
-                    <td>hello</td>
-                    <td>
-                      <input type="Submit" value="View" />
+                      <button type="button">
+                        <a routerLink="../../project/{{ project.id }}">
+                          View
+                        </a>
+                      </button>
                       <button type="button">Delete Project</button>
                     </td>
                   </tr>
@@ -94,19 +89,44 @@
                     <th>Details</th>
                     <th>Action</th>
                   </tr>
-                  <tr>
-                    <td>Project a</td>
+                  <tr *ngFor="let project of projectSchedule">
+                    <td>{{ project.name }}</td>
                     <td>Roof</td>
                     <td>
-                      <input type="Submit" value="View" />
+                      <button type="button">
+                        <a routerLink="../../project/{{ project.id }}">
+                          View
+                        </a>
+                      </button>
                       <button type="button">Delete Project</button>
                     </td>
                   </tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1">
+            <mat-card class="card comment-list mat-elevation-z5">
+              <mat-card-header>
+                <mat-card-title> List of Unschedule Project </mat-card-title>
+                <button class="evt">Add</button>
+              </mat-card-header>
+              <mat-card-content>
+                <table style="width: 100%" id="t01">
                   <tr>
-                    <td>Project b</td>
-                    <td>hello</td>
+                    <th>Project</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngFor="let project of projectUnschedule">
+                    <td>{{ project.name }}</td>
+                    <td>{{ buildingId }}</td>
                     <td>
-                      <input type="Submit" value="View" />
+                      <button type="button">
+                        <a routerLink="../../project/{{ project.id }}">
+                          View
+                        </a>
+                      </button>
                       <button type="button">Delete Project</button>
                     </td>
                   </tr>
