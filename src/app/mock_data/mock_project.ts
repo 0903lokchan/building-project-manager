@@ -63,5 +63,125 @@ export const PROJECTS: Project[] = [
             {author: "Contractor3", content: "Will do!"}
         ]
     },
+    {
+        id: '3',
+        name: "project 4",
+        status: ProjectStatus.Scheduled,
+        startDate: "28Jul2021",
+        finishDate: "28Oct2021",
+        contactPerson: "Eli",
+        projectManager: "Tiff",
+        contractor: "Gio",
+        workList: [
+            {status: WorkStatus.Scheduled, content: "Work 1"},
+            {status: WorkStatus.Cancelled, content: "Work 2"},
+            {status: WorkStatus.Scheduled, content: "Work 3"}
+        ],
+        commentList: [
+            {author: "Manager3", content: "You may comment in here."},
+            {author: "Owner3", content: "Cool."},
+            {author: "Contractor3", content: "Will do!"}
+        ]
+    },
+    {
+        id: '4',
+        name: "project 5",
+        status: ProjectStatus.Scheduled,
+        startDate: "28Jul2021",
+        finishDate: "28Oct2021",
+        contactPerson: "Eli",
+        projectManager: "Tiff",
+        contractor: "Gio",
+        workList: [
+            {status: WorkStatus.Scheduled, content: "Work 1"},
+            {status: WorkStatus.Cancelled, content: "Work 2"},
+            {status: WorkStatus.Scheduled, content: "Work 3"}
+        ],
+        commentList: [
+            {author: "Manager3", content: "You may comment in here."},
+            {author: "Owner3", content: "Cool."},
+            {author: "Contractor3", content: "Will do!"}
+        ]
+    },
+    {
+        id: '5',
+        name: "project 6",
+        status: ProjectStatus.Scheduled,
+        startDate: "28Jul2021",
+        finishDate: "28Oct2021",
+        contactPerson: "Eli",
+        projectManager: "Tiff",
+        contractor: "Gio",
+        workList: [
+            {status: WorkStatus.Scheduled, content: "Work 1"},
+            {status: WorkStatus.Cancelled, content: "Work 2"},
+            {status: WorkStatus.Scheduled, content: "Work 3"}
+        ],
+        commentList: [
+            {author: "Manager3", content: "You may comment in here."},
+            {author: "Owner3", content: "Cool."},
+            {author: "Contractor3", content: "Will do!"}
+        ]
+    },
+    {
+        id: '6',
+        name: "project 7",
+        status: ProjectStatus.Scheduled,
+        startDate: "28Jul2021",
+        finishDate: "28Oct2021",
+        contactPerson: "Eli",
+        projectManager: "Tiff",
+        contractor: "Gio",
+        workList: [
+            {status: WorkStatus.Scheduled, content: "Work 1"},
+            {status: WorkStatus.Cancelled, content: "Work 2"},
+            {status: WorkStatus.Scheduled, content: "Work 3"}
+        ],
+        commentList: [
+            {author: "Manager3", content: "You may comment in here."},
+            {author: "Owner3", content: "Cool."},
+            {author: "Contractor3", content: "Will do!"}
+        ]
+    },
+    {
+        id: '7',
+        name: "project 8",
+        status: ProjectStatus.Scheduled,
+        startDate: "28Jul2021",
+        finishDate: "28Oct2021",
+        contactPerson: "Eli",
+        projectManager: "Tiff",
+        contractor: "Gio",
+        workList: [
+            {status: WorkStatus.Scheduled, content: "Work 1"},
+            {status: WorkStatus.Cancelled, content: "Work 2"},
+            {status: WorkStatus.Scheduled, content: "Work 3"}
+        ],
+        commentList: [
+            {author: "Manager3", content: "You may comment in here."},
+            {author: "Owner3", content: "Cool."},
+            {author: "Contractor3", content: "Will do!"}
+        ]
+    },
+    {
+        id: '8',
+        name: "project 9",
+        status: ProjectStatus.Scheduled,
+        startDate: "28Jul2021",
+        finishDate: "28Oct2021",
+        contactPerson: "Eli",
+        projectManager: "Tiff",
+        contractor: "Gio",
+        workList: [
+            {status: WorkStatus.Scheduled, content: "Work 1"},
+            {status: WorkStatus.Cancelled, content: "Work 2"},
+            {status: WorkStatus.Scheduled, content: "Work 3"}
+        ],
+        commentList: [
+            {author: "Manager3", content: "You may comment in here."},
+            {author: "Owner3", content: "Cool."},
+            {author: "Contractor3", content: "Will do!"}
+        ]
+    }
     
 ]
