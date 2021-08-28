@@ -3,13 +3,13 @@ import { Project } from './data_model/project';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  constructor(private http: HttpClient, private _snackbar: MatSnackBar) {}
+  constructor(private http: HttpClient, private messageService: MessageService) {}
 
   private projectsApi = 'api/projects';
   httpOptions = {
@@ -61,7 +61,7 @@ export class ProjectService {
     return (error: any): Observable<T> => {
       console.log(error);
 
-      this.log(`${operation} failed: ${error.message}`);
+      this.messageService.showErrorMessage(`${operation} failed: ${error.message}`);
 
       // Go on with empty result
       return of(result as T);
@@ -69,8 +69,6 @@ export class ProjectService {
   }
 
   private log(message: string) {
-    this._snackbar.open(message, 'Close', {
-      duration: 3000
-    })
+    this.messageService.showMessage(message);
   }
 }
