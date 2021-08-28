@@ -1,6 +1,6 @@
 <div class="grid-container">
   <div>
-    <h1 class="mat-h1">Dashboard</h1>
+    <h1 class="mat-h1">Building Directory</h1>
     <mat-form-field>
       <mat-label>Search by property name</mat-label>
       <input matInput [(ngModel)]="searchText">
@@ -13,13 +13,6 @@
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
           </mat-card-title>
         </mat-card-header>
         <img mat-card-image [src]="card.data.img" alt="picture of the building" onerror="this.src='https://loremflickr.com/408/240'">
