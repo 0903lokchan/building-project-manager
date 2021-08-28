@@ -7,6 +7,8 @@
   height: 300px;
   padding: 10px;
   vertical-align: middle;
+  top: 200px;
+  left: 75%;
 }
 
 h1 {
@@ -21,10 +23,9 @@ label {
   color: rgb(105, 16, 247);
   padding: 7px 6px;
 }
-.header{
-    padding: 60px;
-    text-align: center;
-    color: rgb(2, 2, 2);
-    font-size: 60px;
-
+.header {
+  padding: 60px;
+  text-align: center;
+  color: rgb(2, 2, 2);
+  font-size: 60px;
 }
