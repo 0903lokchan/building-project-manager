@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../data_model/project';
 import { ProjectStatus } from '../data_model/project';
-import { Building } from '../data_model/building';
+
 @Component({
   selector: 'app-building',
   templateUrl: './building.component.html',
@@ -31,24 +31,24 @@ export class BuildingComponent implements OnInit {
   }
   ngOnInit(): void {
     this.buildingId = +(this.route.snapshot.paramMap.get('id') || '0');
+    console.log(this.buildingId);
+    this.build = BUILDINGS[this.buildingId-1];
+    this.project = this.build.projectList;
     this.project.forEach(element => {
       //console.log(element);
     });
     this.projectFull.forEach(element => {
       if(this.project.includes(+element.id)){
         this.projects.push(element);
-        console.log(element.name)
       }
     });
     this.projects.forEach(element => {
-      console.log(element.status);
         if(element.status == ProjectStatus.Closed){
           this.projectClose.push(element);
         } else if(element.status == ProjectStatus.Current) {
           this.projectCurrent.push(element);
         } else if(element.status == ProjectStatus.Scheduled){
           this.projectSchedule.push(element);
-          console.log("haa");
         } else if(element.status == ProjectStatus.Unscheduled){
           this.projectUnschedule.push(element);
         }
