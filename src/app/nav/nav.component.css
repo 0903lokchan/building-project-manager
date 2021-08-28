@@ -15,3 +15,9 @@
   top: 0;
   z-index: 1;
 }
+
+.greeting {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
