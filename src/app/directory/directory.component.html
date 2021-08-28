@@ -7,7 +7,7 @@
     </mat-form-field>
   </div>
   
-  <mat-grid-list cols="4">
+  <mat-grid-list cols="4" rowHeight="460">
     <mat-grid-tile *ngFor="let card of cards | cardFilter: searchText" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card" [tabindex]="card.data.id">
         <mat-card-header>
@@ -36,9 +36,11 @@
           </table>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-mini-fab aria-label="view button">
-            <mat-icon>navigate_next</mat-icon>
-          </button>
+          <a routerLink="../building/{{card.data.id}}">
+            <button mat-mini-fab aria-label="view button">
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </a>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
