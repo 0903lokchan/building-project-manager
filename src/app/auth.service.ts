@@ -1,78 +1,110 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, filter, map } from 'rxjs/operators';
 import { LoginRequest } from './data_model/loginRequest';
 import { User } from './data_model/user';
+import { MessageService } from './message.service';
 import { USERS } from './mock_data/mock_users';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-	private readonly USER_API = '';
+	private userApi = 'api/users';
+	private httpOptions = {
+		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+	};
 	private readonly storageKey = 'currentUser';
 	private currentUser: User | undefined;
 
-	constructor() { }
+	constructor(private http: HttpClient, private messageService: MessageService) { }
 	
-	private getUser(): User {
+	// methods to manipulate current user in session storage
+	private getCurrentUser(): User {
 		return JSON.parse(sessionStorage.getItem(this.storageKey) || "null")
 	}
 
-
-	private setUser(user: User): void {
+	private setCurrentUser(user: User): void {
 		sessionStorage.setItem(this.storageKey, JSON.stringify(user))
 	}
 
-	private removeUser(): void {
+	private removeCurrentUser(): void {
 		sessionStorage.removeItem(this.storageKey)
 	}
 
-	login (loginRequest: LoginRequest): boolean {
-		const users: User[] = this.getUsers()
-		const user = users.filter(
-			(user) => user.LoginName === loginRequest.username && user.Password === loginRequest.password
-		);
-		if (user.length == 1) {
-			this.setUser(user[0])
-			return true;
-		}
-		return false;
+
+	login(loginRequest: LoginRequest): Observable<User> {
+		return this.getUsers().pipe(
+			map(users => {
+				const user = users.filter(
+					user => user.LoginName === loginRequest.username && user.Password === loginRequest.password
+				);
+				if (user.length == 1) {
+					this.setCurrentUser(user[0])
+					return user[0]
+				} else {
+					throw new Error("User not found")
+				}
+			})
+		)
 	}
 
 	logout () {
-		this.removeUser()
+		this.removeCurrentUser()
 	}
 
 	isLoggedIn (): boolean {
-		return this.getUser != null;
+		return this.getCurrentUser != null;
 	}
 
 	getCurrentUser$ (): Observable<User | undefined> {
-		return of(this.getUser());
+		return of(this.getCurrentUser());
 	}
 
-	getUsers(): User[] {
-		// retrieve from local storage
-		var users = localStorage.getItem('users');
+	getUsers(): Observable<User[]> {
+		// retrieve from session storage to reduce API calls
+		var users = sessionStorage.getItem('users');
 		if (users) {
-			return JSON.parse(users)
+			return of(JSON.parse(users))
 		}
 		// retrieve from API
-		users = this.httpGetUserList();
-		try {
-			return JSON.parse(users).users;
-		} catch (error) {
-			// if anything happens, return empty list
-			return []
-		}
+		return this.httpGetUserList()
 	}
 
-	httpGetUserList(){
+	xhrGetUserList(): User[] {
+		//deprecated
 		var theUrl = 'https://happybuildings.sim.vuw.ac.nz/api/dongpham/user_list.json'
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
 		xmlHttp.send( null );
 		
-		return xmlHttp.responseText;
+		try {
+			return JSON.parse(xmlHttp.responseText).users;
+		} catch (error) {
+			this.handleError<User[]>('xhrGetUserList')
+			return []
 		}
+	}
+
+	httpGetUserList(): Observable<User[]> {
+		return this.http
+			.get<User[]>(this.userApi)
+			.pipe(catchError(this.handleError<User[]>('httpGetUserList', [])));
+	}
+
+	private handleError<T>(operation = 'operation', result?: T) {
+		return (error: any): Observable<T> => {
+		  console.log(error);
+	
+		  this.messageService.showErrorMessage(`${operation} failed: ${error.message}`);
+	
+		  // Go on with empty result
+		  return of(result as T);
+		};
+	  }
+	
+	  private log(message: string) {
+		this.messageService.showMessage(message);
+	  }
 }
