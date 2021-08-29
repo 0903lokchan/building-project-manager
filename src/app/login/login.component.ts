@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { LoginRequest } from '../data_model/loginRequest';
 import { User } from '../data_model/user';
@@ -34,14 +35,20 @@ export class LoginComponent implements OnInit {
 			username: this.form.username.value,
 			password: this.form.password.value
 		};
-		const isLoggedIn = this.authService.login(loginRequest);
-		if (isLoggedIn) {
-			// use router to go to main
-			this.router.navigate([ 'main' ]);
 
-		} else {
-			this.messageService.showMessage(" invalid username or password");
-		}
+		this.authService.login(loginRequest).subscribe({
+			next: user => this.router.navigate(['main']),
+			error: err => this.messageService.showErrorMessage("Invalid username or password")
+		})
+
+		// const isLoggedIn = this.authService.login(loginRequest);
+		// if (isLoggedIn) {
+		// 	// use router to go to main
+		// 	this.router.navigate([ 'main' ]);
+
+		// } else {
+		// 	this.messageService.showMessage(" invalid username or password");
+		// }
 	}
 	validateForm(){
 		var x = (<HTMLInputElement>document.getElementById("username")).value;
