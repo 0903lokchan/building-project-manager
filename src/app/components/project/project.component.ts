@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../project.service';
-import { Project, ProjectStatus } from '../data_model/project';
-import { AuthService } from '../auth.service';
-import { User } from '../data_model/user';
-import { WorkStatus } from '../data_model/work';
+import { ProjectService } from '../../services/project.service';
+import { Project, ProjectStatus } from '../../data_model/project';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../data_model/user';
+import { WorkStatus } from '../../data_model/work';
 import { ActivatedRoute } from '@angular/router';
-import { Comment } from '../data_model/comment';
+import { Comment } from '../../data_model/comment';
 
 @Component({
   selector: 'app-project',
