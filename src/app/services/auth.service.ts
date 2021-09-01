@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
-import { LoginRequest } from './data_model/loginRequest';
-import { User } from './data_model/user';
+import { LoginRequest } from '../data_model/loginRequest';
+import { User } from '../data_model/user';
 import { MessageService } from './message.service';
-import { USERS } from './mock_data/mock_users';
+import { USERS } from '../mock_data/mock_users';
 
 @Injectable({
 	providedIn: 'root'
@@ -54,8 +54,8 @@ export class AuthService {
 		this.removeCurrentUser()
 	}
 
-	isLoggedIn (): boolean {
-		return this.getCurrentUser != null;
+	isLoggedIn(): boolean {
+		return this.getCurrentUser() != null;
 	}
 
 	getCurrentUser$ (): Observable<User | undefined> {

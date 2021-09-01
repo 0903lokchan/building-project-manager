@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
-import { LoginRequest } from '../data_model/loginRequest';
-import { User } from '../data_model/user';
-import { MessageService } from '../message.service';
+import { AuthService } from '../../services/auth.service';
+import { LoginRequest } from '../../data_model/loginRequest';
+import { User } from '../../data_model/user';
+import { MessageService } from '../../services/message.service';
 
 @Component({
 	selector: 'app-login',

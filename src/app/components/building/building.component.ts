@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BUILDINGS } from "../mock_data/mock-buildings"
-import { PROJECTS } from "../mock_data/mock_project";
-import { ProjectService } from '../project.service';
-import { AuthService } from '../auth.service';
+import { BUILDINGS } from "../../mock_data/mock-buildings"
+import { PROJECTS } from "../../mock_data/mock_project";
+import { ProjectService } from '../../services/project.service';
+import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../data_model/project';
-import { ProjectStatus } from '../data_model/project';
+import { Project } from '../../data_model/project';
+import { ProjectStatus } from '../../data_model/project';
 
 @Component({
   selector: 'app-building',
