@@ -54,8 +54,8 @@ export class AuthService {
 		this.removeCurrentUser()
 	}
 
-	isLoggedIn (): boolean {
-		return this.getCurrentUser != null;
+	isLoggedIn(): boolean {
+		return this.getCurrentUser() != null;
 	}
 
 	getCurrentUser$ (): Observable<User | undefined> {
