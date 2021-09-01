@@ -30,5 +30,20 @@ export const USERS: User[] = [
 		LoginName: 'lok',
 		Password: 'lok=]',
 		UserType: 'owner'
-	}
+	},
+	{
+		LoginName: "aaaa",
+		Password: "1234",
+		UserType: "owner"
+	  },
+	  {
+		LoginName: "bbbb",
+		Password: "4321",
+		UserType: "manager"
+	  },
+	  {
+		LoginName: "cccc",
+		Password: "4567",
+		UserType: "contractor"
+	  }
 ];
