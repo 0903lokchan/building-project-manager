@@ -16,6 +16,11 @@ export class ProjectService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
+  /**
+   * Get a project by project ID
+   * @param id project ID
+   * @returns An Observable of the target Project. Returns an empty Project on error
+   */
   getProject(id: string): Observable<Project> {
     const url = `${this.projectsApi}/${id}`;
     return this.http.get<Project>(url).pipe(
@@ -24,19 +29,33 @@ export class ProjectService {
     );
   }
 
+  /**
+   * Get a list of all projects.
+   * @returns An Observable of project list
+   */
   getProjects(): Observable<Project[]> {
     return this.http
       .get<Project[]>(this.projectsApi)
       .pipe(catchError(this.handleError<Project[]>('httpGetProjects', [])));
   }
 
-  updateProject(project: Project): Observable<any> {
-    return this.http.put(this.projectsApi, project, this.httpOptions).pipe(
+  /**
+   * Send a PUT request to update a project in database.
+   * @param project Modified Project object
+   * @returns The updated Project object
+   */
+  updateProject(project: Project): Observable<Project> {
+    return this.http.put<Project>(this.projectsApi, project, this.httpOptions).pipe(
       tap((_) => this.log(`updated project id=${project.id}`)),
-      catchError(this.handleError<any>('updateProject'))
+      catchError(this.handleError<Project>('updateProject', project))
     );
   }
 
+  /**
+   * Send a POST request to add a new project to database.
+   * @param project the project to add
+   * @returns An Observable of the added project
+   */
   addProject(project: Project): Observable<Project> {
     return this.http
       .post<Project>(this.projectsApi, project, this.httpOptions)
@@ -44,10 +63,15 @@ export class ProjectService {
         tap((newProject: Project) =>
           this.log(`added project w/ id=${newProject.id}`)
         ),
-        catchError(this.handleError<Project>('addProject'))
+        catchError(this.handleError<Project>('addProject', project))
       );
   }
 
+  /**
+   * Send a DELETE request to delete a porject from database.
+   * @param id ID of project to delete
+   * @returns An Observable of deleted project
+   */
   deleteProject(id: string): Observable<Project> {
     const url = `${this.projectsApi}/${id}`;
 
@@ -57,6 +81,12 @@ export class ProjectService {
     );
   }
 
+  /**
+   * General error handling funciton. Logs the error in console and display error message. Returns a fallback value as T.
+   * @param operation Name of operation in error
+   * @param result Fallback response
+   * @returns Fallback response as T
+   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(error);
@@ -68,7 +98,12 @@ export class ProjectService {
     };
   }
 
+  /**
+   * General logging funciton. logs the message and displaly it in the app.
+   * @param message message to display
+   */
   private log(message: string) {
+    console.log(message);
     this.messageService.showMessage(message);
   }
 }

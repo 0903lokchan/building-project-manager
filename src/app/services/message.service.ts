@@ -7,6 +7,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MessageService {
   constructor(private _snackbar: MatSnackBar) {}
 
+  /**
+   * Displays a message via snackbar on bottom
+   * @param message Message to display
+   * @param action String to display for action button
+   * @param duration Duration before auto dismiss
+   */
   showMessage(
     message: string,
     action: string = 'Close',
@@ -17,6 +23,12 @@ export class MessageService {
     });
   }
 
+  /**
+   * Displays a message in warning color via snackbar on bottom
+   * @param message Message to display
+   * @param action String to display for action button
+   * @param duration Duration before auto dismiss
+   */
   showErrorMessage(
     message: string,
     action: string = 'Close',
