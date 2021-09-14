@@ -3,13 +3,18 @@ import { Building } from "../data_model/building";
 import { BUILDINGS } from "../mock_data/mock-buildings";
 import { Observable, of } from "rxjs";
 import { User } from '../data_model/user';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DirectoryService {
+  private buildingsApi = 'api/buildings';
+  constructor(private http:HttpClient, private messageService:MessageService) { 
 
-  constructor() { }
+  }
 
   /**
    * Fetch a list of buildings. A user may be passed as argument to filter output.
@@ -19,8 +24,22 @@ export class DirectoryService {
   getBuildings(user?: User): Observable<Building[]> {
     //TODO make HTTP service request
     const buildings = of(BUILDINGS);
+    
     //TODO implement user access filtering
-    return buildings;
+    return this.http
+    .get<Building[]>(this.buildingsApi)
+    .pipe(catchError(this.handleError<Building[]>('httpGetBuildings', [])));;
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(error);
+
+      this.messageService.showErrorMessage(`${operation} failed: ${error.message}`);
+
+      // Go on with empty result
+      return of(result as T);
+    };
   }
   
   /**
@@ -30,6 +49,7 @@ export class DirectoryService {
    */
   getBuilding(id: string): Observable<Building> {
     //TODO make HTTP service request
+
     return of(BUILDINGS[0])
   }
 

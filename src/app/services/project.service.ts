@@ -80,6 +80,7 @@ export class ProjectService {
       catchError(this.handleError<Project>('deleteProject'))
     );
   }
+  
 
   /**
    * General error handling funciton. Logs the error in console and display error message. Returns a fallback value as T.

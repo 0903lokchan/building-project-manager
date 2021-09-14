@@ -5,8 +5,10 @@ import { ProjectService } from '../../services/project.service';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../data_model/project';
+import { Building } from '../../data_model/building'
 import { ProjectStatus } from '../../data_model/project';
-
+import {DirectoryService} from '../../services/directory.service'
+import { toHash } from 'ajv/dist/compile/util';
 @Component({
   selector: 'app-building',
   templateUrl: './building.component.html',
@@ -18,6 +20,7 @@ export class BuildingComponent implements OnInit {
   build = BUILDINGS[this.buildingId];
   projectFull = PROJECTS;
   project = this.build.projectList;
+  buildings: Building[] =[];
   projects: Project[] = [];
   projectClose: Project[] = [];
   projectCurrent: Project[] = [];
@@ -26,16 +29,17 @@ export class BuildingComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute,
+    private buildingService: DirectoryService) { 
     
   }
-  ngOnInit(): void {
-    this.buildingId = +(this.route.snapshot.paramMap.get('id') || '0');
-    console.log(this.buildingId);
-    this.build = BUILDINGS[this.buildingId-1];
-    this.project = this.build.projectList;
-    this.project.forEach(element => {
-      //console.log(element);
+
+  getBuildings(): void {
+    this.buildingService.getBuildings().subscribe( building => {
+      building.forEach(element => {
+        this.buildings.push(element);
+        console.log("blabla")
+      });
     });
     this.projectFull.forEach(element => {
       if(this.project.includes(+element.id)){
@@ -43,15 +47,27 @@ export class BuildingComponent implements OnInit {
       }
     });
     this.projects.forEach(element => {
-        if(element.status == ProjectStatus.Closed){
-          this.projectClose.push(element);
-        } else if(element.status == ProjectStatus.Current) {
-          this.projectCurrent.push(element);
-        } else if(element.status == ProjectStatus.Scheduled){
-          this.projectSchedule.push(element);
-        } else if(element.status == ProjectStatus.Unscheduled){
-          this.projectUnschedule.push(element);
-        }
+      if(element.status == ProjectStatus.Closed){
+        this.projectClose.push(element);
+      } else if(element.status == ProjectStatus.Current) {
+        this.projectCurrent.push(element);
+      } else if(element.status == ProjectStatus.Scheduled){
+        this.projectSchedule.push(element);
+      } else if(element.status == ProjectStatus.Unscheduled){
+        this.projectUnschedule.push(element);
+      }
+  });
+  }
+
+  ngOnInit(): void {
+    
+    this.getBuildings()
+    this.buildingId = +(this.route.snapshot.paramMap.get('id') || '0');
+    console.log(this.buildingId);
+    this.build = BUILDINGS[this.buildingId-1];
+    this.project = this.build.projectList;
+    this.project.forEach(element => {
+      //console.log(element);
     });
   }
 
@@ -63,4 +79,9 @@ export class BuildingComponent implements OnInit {
 		
 		return xmlHttp.responseText;
 		}
+
+  delete(id : string){
+    this.projectService.deleteProject(id).subscribe();
+    this.getBuildings()
+  }
 }
