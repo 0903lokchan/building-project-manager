@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../data_model/project';
+import { Project, ProjectStatus } from '../data_model/project';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -36,7 +36,10 @@ export class ProjectService {
   getProjects(): Observable<Project[]> {
     return this.http
       .get<Project[]>(this.projectsApi)
-      .pipe(catchError(this.handleError<Project[]>('httpGetProjects', [])));
+      .pipe(
+        tap((projects: Project[]) => sessionStorage.setItem("projects", JSON.stringify(projects))),
+        catchError(this.handleError<Project[]>('httpGetProjects', []))
+        );
   }
 
   /**
@@ -49,6 +52,26 @@ export class ProjectService {
       tap((_) => this.log(`updated project id=${project.id}`)),
       catchError(this.handleError<Project>('updateProject', project))
     );
+  }
+
+  createProject(): Observable<Project> {
+    const newProject = {
+      id: '999',
+      name: 'dummy project',
+      startDate: '08Jul2021',
+      finishDate: '17Aug2021',
+      projectManager: 'manager',
+      contactPerson: 'contact person',
+      contractor: 'contractor',
+      status: ProjectStatus.Current,
+      workList: [],
+      commentList: []
+    }
+    // TODO super ugly, change it later
+    const projects: Project[] = JSON.parse(sessionStorage.getItem("projects") || "null")
+    const newId: string = (Math.max(...projects.map(project => parseInt(project.id))) + 1).toString()
+    newProject.id = newId
+    return this.addProject(newProject)
   }
 
   /**

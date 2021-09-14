@@ -95,18 +95,6 @@ export class BuildingComponent implements OnInit {
   }
 
   add(){
-
-    this.projectService.addProject({
-      id: '999',
-      name: 'dummy project',
-      startDate: '08Jul2021',
-      finishDate: '17Aug2021',
-      projectManager: 'manager',
-      contactPerson: 'contact person',
-      contractor: 'contractor',
-      status: ProjectStatus.Current,
-      workList: [],
-      commentList: []
-    }).subscribe();
+    this.projectService.createProject().subscribe();
   }
 }
