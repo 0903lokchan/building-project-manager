@@ -41,6 +41,7 @@ export class BuildingComponent implements OnInit {
         console.log("blabla")
       });
     });
+    this.projects = [];
     this.projectFull.forEach(element => {
       if(this.project.includes(+element.id)){
         this.projects.push(element);
