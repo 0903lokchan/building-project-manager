@@ -85,7 +85,28 @@ export class BuildingComponent implements OnInit {
 		}
 
   delete(id : string){
-    this.projectService.deleteProject(id).subscribe();
-    this.getBuildings()
+    if(this.authService.getCurrentUser().UserType.match("manager")){
+      this.projectService.deleteProject(id).subscribe();
+      this.getBuildings()
+    } else {
+      alert("you are not the manager");
+    }
+    
+  }
+
+  add(){
+
+    this.projectService.addProject({
+      id: '999',
+      name: 'dummy project',
+      startDate: '08Jul2021',
+      finishDate: '17Aug2021',
+      projectManager: 'manager',
+      contactPerson: 'contact person',
+      contractor: 'contractor',
+      status: ProjectStatus.Current,
+      workList: [],
+      commentList: []
+    }).subscribe();
   }
 }
