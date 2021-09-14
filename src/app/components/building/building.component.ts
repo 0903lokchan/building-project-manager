@@ -8,7 +8,6 @@ import { Project } from '../../data_model/project';
 import { Building } from '../../data_model/building'
 import { ProjectStatus } from '../../data_model/project';
 import {DirectoryService} from '../../services/directory.service'
-import { toHash } from 'ajv/dist/compile/util';
 
 @Component({
   selector: 'app-building',
@@ -27,6 +26,7 @@ export class BuildingComponent implements OnInit {
   projectCurrent: Project[] = [];
   projectSchedule: Project[] = [];
   projectUnschedule: Project[] = [];
+
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
@@ -63,7 +63,7 @@ export class BuildingComponent implements OnInit {
       } else if(element.status == ProjectStatus.Unscheduled){
         this.projectUnschedule.push(element);
       }
-  });
+    });
   }
 
   ngOnInit(): void {
@@ -97,9 +97,10 @@ export class BuildingComponent implements OnInit {
   }
 
   add(){
-    const tempProj = this.projectService.createProject().subscribe( proj =>{
-      this.router.navigate(['../../project/'+ proj.id ])
-    });
-    
+    this.projectService.createProject().subscribe( 
+      proj =>{
+        this.router.navigate(["main", "project", proj.id])
+      }
+    )
   }
 }
