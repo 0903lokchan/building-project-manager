@@ -46,6 +46,10 @@ export class BuildingComponent implements OnInit {
         this.projects.push(element);
       }
     });
+    this.projectClose = [];
+    this.projectCurrent =[];
+    this.projectSchedule =[];
+    this.projectUnschedule =[];
     this.projects.forEach(element => {
       if(element.status == ProjectStatus.Closed){
         this.projectClose.push(element);
@@ -76,7 +80,6 @@ export class BuildingComponent implements OnInit {
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
 		xmlHttp.send( null );
-		
 		return xmlHttp.responseText;
 		}
 
