@@ -71,6 +71,7 @@ export class ProjectService {
     const projects: Project[] = JSON.parse(sessionStorage.getItem("projects") || "null")
     const newId: string = (Math.max(...projects.map(project => parseInt(project.id))) + 1).toString()
     newProject.id = newId
+    
     return this.addProject(newProject)
   }
 

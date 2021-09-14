@@ -3,12 +3,13 @@ import { BUILDINGS } from "../../mock_data/mock-buildings"
 import { PROJECTS } from "../../mock_data/mock_project";
 import { ProjectService } from '../../services/project.service';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../data_model/project';
 import { Building } from '../../data_model/building'
 import { ProjectStatus } from '../../data_model/project';
 import {DirectoryService} from '../../services/directory.service'
 import { toHash } from 'ajv/dist/compile/util';
+
 @Component({
   selector: 'app-building',
   templateUrl: './building.component.html',
@@ -30,7 +31,8 @@ export class BuildingComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private buildingService: DirectoryService) { 
+    private buildingService: DirectoryService,
+    private router: Router) { 
     
   }
 
@@ -95,6 +97,9 @@ export class BuildingComponent implements OnInit {
   }
 
   add(){
-    this.projectService.createProject().subscribe();
+    const tempProj = this.projectService.createProject().subscribe( proj =>{
+      this.router.navigate(['../../project/'+ proj.id ])
+    });
+    
   }
 }

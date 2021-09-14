@@ -40,7 +40,9 @@
                           View
                         </a>
                       </button>
-                      <button type="button" (click)="delete(project.id)"} >Delete Project</button>
+                      <button type="button" (click)="delete(project.id)" }>
+                        Delete Project
+                      </button>
                     </td>
                   </tr>
                 </table>
@@ -69,7 +71,10 @@
                           View
                         </a>
                       </button>
-                      <button type="button" (click)="delete(project.id)">Delete Project</button>
+
+                      <button type="button" (click)="delete(project.id)">
+                        Delete Project
+                      </button>
                     </td>
                   </tr>
                 </table>
@@ -80,7 +85,7 @@
             <mat-card class="card comment-list mat-elevation-z5">
               <mat-card-header>
                 <mat-card-title> List of Scheduled Project </mat-card-title>
-                <button class="evt">Add</button>
+                <button class="evt" (click)="add()">Add</button>
               </mat-card-header>
               <mat-card-content>
                 <table style="width: 100%" id="t01">
@@ -98,7 +103,9 @@
                           View
                         </a>
                       </button>
-                      <button type="button" (click)="delete(project.id)">Delete Project</button>
+                      <button type="button" (click)="delete(project.id)">
+                        Delete Project
+                      </button>
                     </td>
                   </tr>
                 </table>
@@ -127,7 +134,7 @@
                           View
                         </a>
                       </button>
-                      <button type="button" >Delete Project</button>
+                      <button type="button">Delete Project</button>
                     </td>
                   </tr>
                 </table>
