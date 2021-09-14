@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Project, ProjectStatus } from '../data_model/project';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 
@@ -37,7 +37,6 @@ export class ProjectService {
     return this.http
       .get<Project[]>(this.projectsApi)
       .pipe(
-        tap((projects: Project[]) => sessionStorage.setItem("projects", JSON.stringify(projects))),
         catchError(this.handleError<Project[]>('httpGetProjects', []))
         );
   }
@@ -67,12 +66,15 @@ export class ProjectService {
       workList: [],
       commentList: []
     }
-    // TODO super ugly, change it later
-    const projects: Project[] = JSON.parse(sessionStorage.getItem("projects") || "null")
-    const newId: string = (Math.max(...projects.map(project => parseInt(project.id))) + 1).toString()
-    newProject.id = newId
-    
-    return this.addProject(newProject)
+
+    return this.getProjects().pipe(
+      mergeMap(projects => {
+        const projectIds = projects.map(project => parseInt(project.id));
+        const newId: string = (Math.max(...projectIds) + 1).toString();
+        newProject.id = newId;
+        return this.addProject(newProject)
+      })
+    )
   }
 
   /**
