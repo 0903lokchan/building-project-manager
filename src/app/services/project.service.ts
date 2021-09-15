@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../data_model/project';
+import { Project, ProjectStatus } from '../data_model/project';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 
@@ -36,7 +36,9 @@ export class ProjectService {
   getProjects(): Observable<Project[]> {
     return this.http
       .get<Project[]>(this.projectsApi)
-      .pipe(catchError(this.handleError<Project[]>('httpGetProjects', [])));
+      .pipe(
+        catchError(this.handleError<Project[]>('httpGetProjects', []))
+        );
   }
 
   /**
@@ -49,6 +51,30 @@ export class ProjectService {
       tap((_) => this.log(`updated project id=${project.id}`)),
       catchError(this.handleError<Project>('updateProject', project))
     );
+  }
+
+  createProject(): Observable<Project> {
+    const newProject = {
+      id: '999',
+      name: 'dummy project',
+      startDate: '08Jul2021',
+      finishDate: '17Aug2021',
+      projectManager: 'manager',
+      contactPerson: 'contact person',
+      contractor: 'contractor',
+      status: ProjectStatus.Current,
+      workList: [],
+      commentList: []
+    }
+
+    return this.getProjects().pipe(
+      mergeMap(projects => {
+        const projectIds = projects.map(project => parseInt(project.id));
+        const newId: string = (Math.max(...projectIds) + 1).toString();
+        newProject.id = newId;
+        return this.addProject(newProject)
+      })
+    )
   }
 
   /**
@@ -80,6 +106,7 @@ export class ProjectService {
       catchError(this.handleError<Project>('deleteProject'))
     );
   }
+  
 
   /**
    * General error handling funciton. Logs the error in console and display error message. Returns a fallback value as T.
