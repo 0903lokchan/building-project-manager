@@ -21,7 +21,7 @@ export class AuthService {
 	constructor(private http: HttpClient, private messageService: MessageService) { }
 	
 	// methods to manipulate current user in session storage
-	private getCurrentUser(): User {
+	public getCurrentUser(): User {
 		return JSON.parse(sessionStorage.getItem(this.storageKey) || "null")
 	}
 
