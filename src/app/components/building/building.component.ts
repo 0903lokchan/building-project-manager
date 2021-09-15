@@ -19,7 +19,7 @@ export class BuildingComponent implements OnInit {
   buildingId = 0;
   build = BUILDINGS[this.buildingId];
   projectFull = PROJECTS;
-  project = this.build.projectList;
+  project = this.build.ProjectList;
   buildings: Building[] =[];
   projects: Project[] = [];
   projectClose: Project[] = [];
@@ -39,7 +39,7 @@ export class BuildingComponent implements OnInit {
   getBuildings(id:number): void {
     this.buildingService.getBuildings().subscribe( building => {
       building.forEach(element => {
-        if(element.id == id){
+        if(element.ID == id){
           this.build = element;
         }
       });
@@ -71,7 +71,7 @@ export class BuildingComponent implements OnInit {
     this.buildingId = +(this.route.snapshot.paramMap.get('id') || '0');
     console.log(this.buildingId);
     this.build = BUILDINGS[this.buildingId-1];
-    this.project = this.build.projectList;
+    this.project = this.build.ProjectList;
     this.getBuildings(this.buildingId)
     this.project.forEach(element => {
       //console.log(element);

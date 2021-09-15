@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Building } from "../data_model/building";
-import { BUILDINGS } from "../mock_data/mock-buildings";
-import { Observable, of } from "rxjs";
+import { Building } from '../data_model/building';
+import { BUILDINGS } from '../mock_data/mock-buildings';
+import { Observable, of } from 'rxjs';
 import { User } from '../data_model/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DirectoryService {
   private buildingsApi = 'api/buildings';
-  constructor(private http:HttpClient, private messageService:MessageService) { 
-
-  }
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   /**
    * Fetch a list of buildings. A user may be passed as argument to filter output.
@@ -24,24 +25,33 @@ export class DirectoryService {
   getBuildings(user?: User): Observable<Building[]> {
     //TODO make HTTP service request
     const buildings = of(BUILDINGS);
-    
+
     //TODO implement user access filtering
     return this.http
-    .get<Building[]>(this.buildingsApi)
-    .pipe(catchError(this.handleError<Building[]>('httpGetBuildings', [])));;
+      .get<Building[]>(this.buildingsApi)
+      .pipe(
+        map(buildings => {
+          return buildings.map(building => {
+            building.Name = building.Address.split(',')[0]
+            return building
+          })
+        }),
+        catchError(this.handleError<Building[]>('httpGetBuildings', [])));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(error);
 
-      this.messageService.showErrorMessage(`${operation} failed: ${error.message}`);
+      this.messageService.showErrorMessage(
+        `${operation} failed: ${error.message}`
+      );
 
       // Go on with empty result
       return of(result as T);
     };
   }
-  
+
   /**
    * Fetch a building by its ID from database.
    * @param id building ID
@@ -49,8 +59,8 @@ export class DirectoryService {
    */
   getBuilding(id: string): Observable<Building> {
     //TODO make HTTP service request
-    
-    return of(BUILDINGS[0])
+
+    return of(BUILDINGS[0]);
   }
 
   /**
@@ -61,7 +71,7 @@ export class DirectoryService {
   createBuilding(building: Building): Observable<Building> {
     //TODO find a unique ID for new building
     //TODO make HTTP service request
-    return of(BUILDINGS[0])
+    return of(BUILDINGS[0]);
   }
 
   /**
@@ -72,7 +82,6 @@ export class DirectoryService {
   updateBuilding(building: Building): Observable<Building> {
     //TODO check if building exist in DB, else throw an error or call createBuilding()
     //TODO make HTTP service request
-    return of(BUILDINGS[0])
+    return of(BUILDINGS[0]);
   }
-  
 }
