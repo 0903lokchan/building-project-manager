@@ -49,7 +49,7 @@ export class DirectoryService {
    */
   getBuilding(id: string): Observable<Building> {
     //TODO make HTTP service request
-
+    
     return of(BUILDINGS[0])
   }
 

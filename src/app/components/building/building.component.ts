@@ -36,11 +36,12 @@ export class BuildingComponent implements OnInit {
     
   }
 
-  getBuildings(): void {
+  getBuildings(id:number): void {
     this.buildingService.getBuildings().subscribe( building => {
       building.forEach(element => {
-        this.buildings.push(element);
-        console.log("blabla")
+        if(element.id == id){
+          this.build = element;
+        }
       });
     });
     this.projects = [];
@@ -67,10 +68,10 @@ export class BuildingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.getBuildings()
     this.buildingId = +(this.route.snapshot.paramMap.get('id') || '0');
     console.log(this.buildingId);
+    this.getBuildings(this.buildingId)
+
     this.build = BUILDINGS[this.buildingId-1];
     this.project = this.build.projectList;
     this.project.forEach(element => {
@@ -89,7 +90,7 @@ export class BuildingComponent implements OnInit {
   delete(id : string){
     if(this.authService.getCurrentUser().UserType.match("manager")){
       this.projectService.deleteProject(id).subscribe();
-      this.getBuildings()
+      this.getBuildings(this.buildingId);
     } else {
       alert("you are not the manager");
     }
@@ -97,10 +98,14 @@ export class BuildingComponent implements OnInit {
   }
 
   add(){
-    this.projectService.createProject().subscribe( 
-      proj =>{
-        this.router.navigate(["main", "project", proj.id])
-      }
-    )
+    if(this.authService.getCurrentUser().UserType.match("manager")){
+      this.projectService.createProject().subscribe( 
+        proj =>{
+          this.router.navigate(["main", "project", proj.id])
+        }
+      )
+    } else {
+      alert("you are not the manager");
+    }
   }
 }
