@@ -70,10 +70,9 @@ export class BuildingComponent implements OnInit {
   ngOnInit(): void {
     this.buildingId = +(this.route.snapshot.paramMap.get('id') || '0');
     console.log(this.buildingId);
-    this.getBuildings(this.buildingId)
-
     this.build = BUILDINGS[this.buildingId-1];
     this.project = this.build.projectList;
+    this.getBuildings(this.buildingId)
     this.project.forEach(element => {
       //console.log(element);
     });
