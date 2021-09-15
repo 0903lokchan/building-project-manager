@@ -1,10 +1,10 @@
 export interface Building {
-    id: number;
-    name?: string;
-    address: string;
-    owner: string;
-    img?: string;
-    type: string;
-    dateOfConstruction: string;
-    projectList: number[];
+    ID: number;
+    Name?: string;
+    Address: string;
+    Owner: string;
+    Img?: string;
+    BuildingType: string;
+    ConstructionDate: string;
+    ProjectList: number[];
 }

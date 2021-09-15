@@ -25,10 +25,10 @@ export class DirectoryComponent implements OnInit{
     this.directoryService.getBuildings()
       .subscribe(buildings => {
         this.cards = buildings.map(building => {
-          if (!building.name) {
-            building.name = building.address;
+          if (!building.Name) {
+            building.Name = building.Address;
           }
-          return {title: building.name, cols: 1, rows: 1, data: building}
+          return {title: building.Name, cols: 1, rows: 1, data: building}
         });
       });
   }
