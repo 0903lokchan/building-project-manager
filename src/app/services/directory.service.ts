@@ -99,6 +99,22 @@ export class DirectoryService {
     }
   }
 
+  /**
+   * Fetch a building by its ID from database.
+   * @param id building ID
+   * @returns An Observable of target building
+   */
+  getBuilding(id: number): Observable<Building> {
+    return this.getBuildings().pipe(
+      map(buildings => {
+        return buildings.filter(building => {
+          return building.ID == id;
+        })[0]
+      }),
+      catchError(this.handleError<Building>('getBuilding'))
+    )
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(error);
@@ -110,38 +126,5 @@ export class DirectoryService {
       // Go on with empty result
       return of(result as T);
     };
-  }
-
-  /**
-   * Fetch a building by its ID from database.
-   * @param id building ID
-   * @returns An Observable of target building
-   */
-  getBuilding(id: string): Observable<Building> {
-    //TODO make HTTP service request
-
-    return of(BUILDINGS[0]);
-  }
-
-  /**
-   * Send a POST request to create a new building entry in the database.
-   * @param building building to add
-   * @returns An Observable of added building
-   */
-  createBuilding(building: Building): Observable<Building> {
-    //TODO find a unique ID for new building
-    //TODO make HTTP service request
-    return of(BUILDINGS[0]);
-  }
-
-  /**
-   * Send a PUT request to update a building entry in database.
-   * @param building Building to update
-   * @returns An Observable of updated building.
-   */
-  updateBuilding(building: Building): Observable<Building> {
-    //TODO check if building exist in DB, else throw an error or call createBuilding()
-    //TODO make HTTP service request
-    return of(BUILDINGS[0]);
   }
 }
