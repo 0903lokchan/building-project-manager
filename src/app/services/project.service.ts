@@ -53,12 +53,12 @@ export class ProjectService {
     );
   }
 
-  createProject(): Observable<Project> {
+  createProject(buildingID: number): Observable<Project> {
     const newProject = {
       id: '999',
       ProjectID: 999,
-      BuildingID: 1,
-      name: 'dummy project',
+      BuildingID: buildingID,
+      name: 'new project',
       startDate: '08Jul2021',
       finishDate: '17Aug2021',
       projectManager: 'manager',
@@ -72,8 +72,9 @@ export class ProjectService {
     return this.getProjects().pipe(
       mergeMap(projects => {
         const projectIds = projects.map(project => parseInt(project.id));
-        const newId: string = (Math.max(...projectIds) + 1).toString();
-        newProject.id = newId;
+        const newId: number = Math.max(...projectIds) + 1;
+        newProject.id = newId.toString();
+        newProject.ProjectID = newId
         return this.addProject(newProject)
       })
     )

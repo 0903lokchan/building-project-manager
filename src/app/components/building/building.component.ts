@@ -102,7 +102,7 @@ export class BuildingComponent implements OnInit {
 
   add() {
     if (this.authService.getCurrentUser().UserType.match('manager')) {
-      this.projectService.createProject().subscribe((proj) => {
+      this.projectService.createProject(this.buildingId).subscribe((proj) => {
         this.router.navigate(['main', 'project', proj.id]);
       });
     } else {
