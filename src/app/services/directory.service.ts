@@ -4,8 +4,9 @@ import { BUILDINGS } from '../mock_data/mock-buildings';
 import { Observable, of } from 'rxjs';
 import { User } from '../data_model/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
+import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class DirectoryService {
   private buildingsApi = 'api/buildings';
   constructor(
     private http: HttpClient,
+    private projectService: ProjectService,
     private messageService: MessageService
   ) {}
 
@@ -26,7 +28,7 @@ export class DirectoryService {
     //TODO implement user access filtering
     // TODO compute a projectList for each building
     // TODO compute a contractorList for each building
-    const allBuildings: Observable<Building[]> = this.http
+    var allBuildings: Observable<Building[]> = this.http
       .get<Building[]>(this.buildingsApi)
       .pipe(
         map((buildings) => {
@@ -36,13 +38,51 @@ export class DirectoryService {
           });
         }),
         catchError(this.handleError<Building[]>('httpGetBuildings', []))
-      );
+    );
+    
+    allBuildings = this.buildProjectList(allBuildings);
+
+    if (user) {
+      return this.filterBuildings(allBuildings, user)
+    } else {
+      return allBuildings
+    }
+  }
+
+  private buildProjectList(buildings: Observable<Building[]>): Observable<Building[]> {
+    return this.projectService.getProjects().pipe(
+      mergeMap(projects => {
+        const projMap: Map<number, number[]> = new Map();
+        
+        // find the project list for each building
+        projects.forEach(project => {
+          const projId: number = project.ProjectID;
+          const buildId: number = project.BuildingID;
+          if (!projMap.has(buildId)) {
+            projMap.set(buildId, []);
+          }
+          projMap.get(buildId)!.push(projId);
+        })
+
+        return buildings.pipe(
+          map((buildings) => {
+            return buildings.map((building) => {
+              building.ProjectList = projMap.get(building.ID) || [];
+              return building
+            })
+          })
+        )
+      })
+    )
+  }
+
+  private filterBuildings(buildings: Observable<Building[]>, user: User): Observable<Building[]> {
     switch (user?.UserType) {
       case 'manager':
-        return allBuildings;
+        return buildings;
 
       case 'owner':   
-        return allBuildings.pipe(
+        return buildings.pipe(
           map((buildings) => {
             return buildings.filter((building) => {
               return building.Owner == user.LoginName;
@@ -52,10 +92,10 @@ export class DirectoryService {
 
       case 'contractor':
         // TODO filter by contractorList
-        return allBuildings;
+        return buildings;
 
       default:
-        return allBuildings;
+        return buildings;
     }
   }
 
