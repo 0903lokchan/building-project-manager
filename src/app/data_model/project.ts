@@ -10,7 +10,10 @@ export enum ProjectStatus {
 
 export interface Project{
     id: string;
+    ProjectID: number;
+    BuildingID: number;
     name: string;
+
     status: ProjectStatus;
     startDate: string;
     finishDate: string;

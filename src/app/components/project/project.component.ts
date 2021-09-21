@@ -41,6 +41,8 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProject(this.projectID).subscribe((project) => {
       this.project = project ? project : {
         id: '0',
+        ProjectID: 0,
+        BuildingID: 1,
         name: 'dummy project',
         startDate: '08Jul2021',
         finishDate: '17Aug2021',

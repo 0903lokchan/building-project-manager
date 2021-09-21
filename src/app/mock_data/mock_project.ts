@@ -5,6 +5,8 @@ import { Comment } from "../data_model/comment";
 export const PROJECTS: Project[] = [
     {
         id: '0',
+        ProjectID: 0,
+        BuildingID: 1,
         name: "project 1",
         status: ProjectStatus.Closed,
         startDate: "30Jul2021",
@@ -25,6 +27,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '1',
+        ProjectID: 1,
+        BuildingID: 1,
         name: "project 2",
         status: ProjectStatus.Current,
         startDate: "29Jul2021",
@@ -45,6 +49,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '2',
+        ProjectID: 2,
+        BuildingID: 1,
         name: "project 3",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
@@ -65,6 +71,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '3',
+        ProjectID: 3,
+        BuildingID: 2,
         name: "project 4",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
@@ -85,6 +93,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '4',
+        ProjectID: 4,
+        BuildingID: 2,
         name: "project 5",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
@@ -105,6 +115,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '5',
+        ProjectID: 5,
+        BuildingID: 2,
         name: "project 6",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
@@ -125,6 +137,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '6',
+        ProjectID: 6,
+        BuildingID: 3,
         name: "project 7",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
@@ -145,6 +159,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '7',
+        ProjectID: 7,
+        BuildingID: 3,
         name: "project 8",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",
@@ -165,6 +181,8 @@ export const PROJECTS: Project[] = [
     },
     {
         id: '8',
+        ProjectID: 8,
+        BuildingID: 3,
         name: "project 9",
         status: ProjectStatus.Scheduled,
         startDate: "28Jul2021",

@@ -7,7 +7,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'Jefford Blakeys',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-08T00:00:00',
-    ProjectList: [0, 5, 6],
+    ProjectList: [0, 1, 2],
     Img: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=x7WgzbHSoJW7pW77XsChbA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=110.759224&pitch=0&thumbfov=100',
   },
   {
@@ -16,7 +16,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'Marrion Blakeys',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-09T00:00:00',
-    ProjectList: [0, 1, 2],
+    ProjectList: [3, 4, 5],
     Img: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=JckUNJmuu1UJ8s8yf1YGCA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=285.4359&pitch=0&thumbfov=100',
   },
   {
@@ -25,7 +25,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'David White',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-10T00:00:00',
-    ProjectList: [0, 3, 5],
+    ProjectList: [6, 7, 8],
     Img: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=cVvzjQoFCSJd18iaHG8p4Q&cb_client=search.gws-prod.gps&w=408&h=240&yaw=157.11557&pitch=0&thumbfov=100',
   },
   {
@@ -34,7 +34,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'owner',
     BuildingType: 'apartment',
     ConstructionDate: '2021-01-23T00:00:00',
-    ProjectList: [4, 6],
+    ProjectList: [],
   },
   {
     ID: 5,
@@ -42,7 +42,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'owner',
     BuildingType: 'apartment',
     ConstructionDate: '2021-06-20T00:00:00',
-    ProjectList: [1],
+    ProjectList: [],
   },
   {
     ID: 6,
@@ -50,7 +50,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'aaaa',
     BuildingType: 'apartment',
     ConstructionDate: '2021-07-18T00:00:00',
-    ProjectList: [0, 1, 2],
+    ProjectList: [],
   },
   {
     ID: 7,
@@ -58,7 +58,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'lok',
     BuildingType: 'apartment',
     ConstructionDate: '2021-09-03T00:00:00',
-    ProjectList: [5],
+    ProjectList: [],
   },
   {
     ID: 8,
@@ -66,7 +66,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'Jim Chandler',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-08T00:00:00',
-    ProjectList: [0, 5, 6],
+    ProjectList: [],
   },
   {
     ID: 9,
@@ -74,7 +74,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'Sophie Garcia',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-08T00:00:00',
-    ProjectList: [0, 5, 6],
+    ProjectList: [],
   },
   {
     ID: 10,
@@ -82,7 +82,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'Olivia Jones',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-08T00:00:00',
-    ProjectList: [0, 5, 6],
+    ProjectList: [],
   },
   {
     ID: 11,
@@ -90,7 +90,7 @@ export const BUILDINGS: Building[] = [
     Owner: 'Ricky Moses',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-08T00:00:00',
-    ProjectList: [0, 5, 6],
+    ProjectList: [],
   },
   {
     ID: 12,
@@ -98,6 +98,6 @@ export const BUILDINGS: Building[] = [
     Owner: 'Calvin Richards',
     BuildingType: 'apartment',
     ConstructionDate: '2021-04-08T00:00:00',
-    ProjectList: [0, 5, 6],
+    ProjectList: [],
   },
 ];

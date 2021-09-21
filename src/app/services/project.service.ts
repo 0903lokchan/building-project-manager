@@ -56,6 +56,8 @@ export class ProjectService {
   createProject(): Observable<Project> {
     const newProject = {
       id: '999',
+      ProjectID: 999,
+      BuildingID: 1,
       name: 'dummy project',
       startDate: '08Jul2021',
       finishDate: '17Aug2021',

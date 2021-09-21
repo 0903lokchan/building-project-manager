@@ -4,7 +4,7 @@ import { BUILDINGS } from '../mock_data/mock-buildings';
 import { Observable, of } from 'rxjs';
 import { User } from '../data_model/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 @Injectable({
@@ -23,20 +23,40 @@ export class DirectoryService {
    * @returns An Observable of building list. Filtered according to user access if user argument is provided.
    */
   getBuildings(user?: User): Observable<Building[]> {
-    //TODO make HTTP service request
-    const buildings = of(BUILDINGS);
-
     //TODO implement user access filtering
-    return this.http
+    // TODO compute a projectList for each building
+    // TODO compute a contractorList for each building
+    const allBuildings: Observable<Building[]> = this.http
       .get<Building[]>(this.buildingsApi)
       .pipe(
-        map(buildings => {
-          return buildings.map(building => {
-            building.Name = building.Address.split(',')[0]
-            return building
-          })
+        map((buildings) => {
+          return buildings.map((building) => {
+            building.Name = building.Address.split(',')[0];
+            return building;
+          });
         }),
-        catchError(this.handleError<Building[]>('httpGetBuildings', [])));
+        catchError(this.handleError<Building[]>('httpGetBuildings', []))
+      );
+    switch (user?.UserType) {
+      case 'manager':
+        return allBuildings;
+
+      case 'owner':   
+        return allBuildings.pipe(
+          map((buildings) => {
+            return buildings.filter((building) => {
+              return building.Owner == user.LoginName;
+            });
+          })
+        );
+
+      case 'contractor':
+        // TODO filter by contractorList
+        return allBuildings;
+
+      default:
+        return allBuildings;
+    }
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
