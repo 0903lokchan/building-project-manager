@@ -33,14 +33,15 @@
                   </tr>
                   <tr *ngFor="let project of projectClose">
                     <td>{{ project.name }}</td>
-                    <td>{{ buildingId }}</td>
+                    <td>Roof</td>
                     <td>
                       <button type="button">
                         <a routerLink="../../project/{{ project.id }}">
                           View
                         </a>
                       </button>
-                      <button type="button" (click)="delete(project.id)" }>
+
+                      <button type="button" (click)="delete(project.id)">
                         Delete Project
                       </button>
                     </td>
