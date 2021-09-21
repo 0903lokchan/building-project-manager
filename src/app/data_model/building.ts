@@ -6,5 +6,5 @@ export interface Building {
     Img?: string;
     BuildingType: string;
     ConstructionDate: string;
-    ProjectList: number[];
+    ProjectList?: number[];
 }
