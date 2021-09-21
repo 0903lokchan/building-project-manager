@@ -4,6 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { Building } from '../../data_model/building';
 import { DirectoryService } from '../../services/directory.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface Card {
   title: string;
@@ -22,8 +23,10 @@ export class DirectoryComponent implements OnInit {
   searchText: string = '';
 
   getDirectory(): void {
-    this.directoryService.getBuildings().subscribe((buildings) => {
+    this.directoryService.getBuildings(this.authService.getCurrentUser()).subscribe((buildings) => {
+      
       this.cards = buildings.map((building) => {
+        
         if (!building.Name) {
           building.Name = building.Address.split(',')[0];
         }
@@ -61,6 +64,7 @@ export class DirectoryComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private directoryService: DirectoryService
+    private directoryService: DirectoryService,
+    private authService: AuthService
   ) {}
 }
