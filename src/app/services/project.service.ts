@@ -42,6 +42,35 @@ export class ProjectService {
   }
 
   /**
+   * Get a list of all projects by making GET calls with incremental id until 500 error
+   */
+  getProjectsSync(): Observable<Project[]> {
+    const url = "https://happybuildings.sim.vuw.ac.nz/api/dongpham"
+
+    var startID: number = 0;
+    const projects: Project[] = []
+    while (true) {
+      var request = new XMLHttpRequest();
+      var url_2 = `${url}/project.${startID}.json`
+      request.open('GET', url_2, false);
+      request.send();
+      
+      if (request.status === 200) {
+        var project = JSON.parse(request.response);
+
+        project.id = project.ProjectID.toString()
+        project.ProjectID = parseInt(project.ProjectID)
+        project.BuildingID = parseInt(project.BuildingID)
+        projects.push(project);
+        startID++;
+      } else {
+        break
+      }
+    }
+    return of(projects)
+  }
+
+  /**
    * Send a PUT request to update a project in database.
    * @param project Modified Project object
    * @returns The updated Project object
@@ -69,7 +98,7 @@ export class ProjectService {
       Comments: []
     }
 
-    return this.getProjects().pipe(
+    return this.getProjectsSync().pipe(
       mergeMap(projects => {
         const projectIds = projects.map(project => parseInt(project.id));
         const newId: number = Math.max(...projectIds) + 1;
