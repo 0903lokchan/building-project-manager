@@ -83,6 +83,9 @@ export class BuildingComponent implements OnInit {
             this.projectUnschedule.push(element);
           }
         });
+
+        console.log(this.projectClose);
+        
       });
   }
 

@@ -3,3 +3,7 @@ export interface User {
     Password: string;
     UserType: string;
 }
+
+export interface UserResponse {
+    users: User[]
+}

@@ -9,3 +9,7 @@ export interface Building {
     ProjectList?: number[];
     ContractorList?: string[];
 }
+
+export interface BuildingResponse {
+    buildings: Building[]
+}
