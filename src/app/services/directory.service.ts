@@ -52,7 +52,7 @@ export class DirectoryService {
    * @returns a Building array observable with additional information from children projects  
    */
   private fetchProjectInfo(buildings: Observable<Building[]>): Observable<Building[]> {
-    return this.projectService.getProjects().pipe(
+    return this.projectService.getProjectsSync().pipe(
       mergeMap(projects => {
         const projMap: Map<number, number[]> = new Map();
         const contractorMap : Map<number, string[]> = new Map()
