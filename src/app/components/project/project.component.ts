@@ -43,15 +43,15 @@ export class ProjectComponent implements OnInit {
         id: '0',
         ProjectID: 0,
         BuildingID: 1,
-        name: 'dummy project',
-        startDate: '08Jul2021',
-        finishDate: '17Aug2021',
-        projectManager: 'manager',
-        contactPerson: 'contact person',
-        contractor: 'contractor',
-        status: ProjectStatus.Current,
-        workList: [],
-        commentList: []
+        Name: 'dummy project',
+        StartDate: '08Jul2021',
+        EndDate: '17Aug2021',
+        ProjectManager: 'manager',
+        ContactPerson: 'contact person',
+        Contractor: 'contractor',
+        Status: ProjectStatus.Current,
+        Works: [],
+        Comments: []
       }
     });
   }
@@ -86,7 +86,7 @@ export class ProjectComponent implements OnInit {
       return;
     }
     const project = { ...this.project }
-    project.status = ProjectStatus.Closed
+    project.Status = ProjectStatus.Closed
     this.sendProject(project);
   }
 
@@ -95,7 +95,7 @@ export class ProjectComponent implements OnInit {
       return;
     }
     const project = { ...this.project }
-    project.status = ProjectStatus.Current
+    project.Status = ProjectStatus.Current
     this.sendProject(project);
   }
 
@@ -104,23 +104,23 @@ export class ProjectComponent implements OnInit {
       return;
     }
     const project = { ...this.project }
-    project.status = ProjectStatus.Closed
+    project.Status = ProjectStatus.Closed
     this.sendProject(project);
   }
 
   createWork(): void {
     const newWork = prompt('Please enter name for the new work') || '';
     const project = {...this.project}
-    project.workList.push({
-      content: newWork,
-      status: WorkStatus.Scheduled,
+    project.Works.push({
+      TypeOfWork: newWork,
+      Status: WorkStatus.Scheduled,
     });
     this.sendProject(project)
   }
 
   deleteWork(id: number): void {
     const project = {...this.project}
-    project.workList.splice(id, 1);
+    project.Works.splice(id, 1);
     this.sendProject(project)
   }
 
@@ -131,10 +131,10 @@ export class ProjectComponent implements OnInit {
   createComment(): void {
     const project = { ...this.project }
     const newComment: Comment = {
-      author: this.currentUser.LoginName,
-      content: this.newCommentText!
+      Author: this.currentUser.LoginName,
+      Text: this.newCommentText!
     }
-    project.commentList.push(newComment)
+    project.Comments.push(newComment)
     this.sendProject(project)
     delete this.newCommentText
   }

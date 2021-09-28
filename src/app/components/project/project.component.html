@@ -2,10 +2,10 @@
     <mat-card *ngIf="project">
         <mat-card-header>
             <mat-card-title>
-                {{project.name | uppercase}}
+                {{project.Name | uppercase}}
             </mat-card-title>
             <mat-card-subtitle>
-                {{project.status}}
+                {{project.Status}}
             </mat-card-subtitle>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu" *ngIf="currentUser.UserType=='manager'">
                 <mat-icon>more_vert</mat-icon>
@@ -27,28 +27,28 @@
                             <table>
                                 <tr>
                                     <th>Start date:</th>
-                                    <td *ngIf="!editMode">{{project.startDate}}</td>
-                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.startDate"></td>
+                                    <td *ngIf="!editMode">{{project.StartDate}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.StartDate"></td>
                                 </tr>
                                 <tr>
                                     <th>Finish date:</th>
-                                    <td *ngIf="!editMode">{{project.finishDate}}</td>
-                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.finishDate"></td>
+                                    <td *ngIf="!editMode">{{project.EndDate}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.EndDate"></td>
                                 </tr>
                                 <tr>
                                     <th>Contact person:</th>
-                                    <td *ngIf="!editMode">{{project.contactPerson}}</td>
-                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.contactPerson"></td>
+                                    <td *ngIf="!editMode">{{project.ContactPerson}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.ContactPerson"></td>
                                 </tr>
                                 <tr>
                                     <th>Project manager:</th>
-                                    <td *ngIf="!editMode">{{project.projectManager}}</td>
-                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.projectManager"></td>
+                                    <td *ngIf="!editMode">{{project.ProjectManager}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.ProjectManager"></td>
                                 </tr>
                                 <tr>
                                     <th>Contractor:</th>
-                                    <td *ngIf="!editMode">{{project.contractor}}</td>
-                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.contractor"></td>
+                                    <td *ngIf="!editMode">{{project.Contractor}}</td>
+                                    <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.Contractor"></td>
                                 </tr>
                             </table>
                         </mat-card-content>
@@ -62,17 +62,17 @@
                             </mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                            <table mat-table [dataSource]="project.workList">
+                            <table mat-table [dataSource]="project.Works">
                                 <ng-container matColumnDef="content">
                                     <th mat-header-cell *matHeaderCellDef>Work</th>
-                                    <td mat-cell *matCellDef="let work">{{work.content}}</td>
+                                    <td mat-cell *matCellDef="let work">{{work.Content}}</td>
                                 </ng-container>
                                 <ng-container matColumnDef="status">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
                                     <td mat-cell *matCellDef="let work; let i = index;">
                                         <select name="work-status" 
                                         *ngIf="isManager"
-                                        [(ngModel)]="project.workList[i].status" 
+                                        [(ngModel)]="project.Works[i].Status" 
                                         (change)="changeWorkStatus()">
                                             <option *ngFor="let status of workStatus" [value]="status">{{status}}</option>
                                         </select>
@@ -101,14 +101,14 @@
                             </mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                            <table mat-table [dataSource]="project.commentList">
+                            <table mat-table [dataSource]="project.Comments">
                                 <ng-container matColumnDef="author">
                                     <th mat-header-cell *matHeaderCellDef>User</th>
-                                    <td mat-cell *matCellDef="let comment">{{comment.author}}</td>
+                                    <td mat-cell *matCellDef="let comment">{{comment.Author}}</td>
                                 </ng-container>
                                 <ng-container matColumnDef="comment">
                                     <th mat-header-cell *matHeaderCellDef>Comment</th>
-                                    <td mat-cell *matCellDef="let comment">{{comment.content}}</td>
+                                    <td mat-cell *matCellDef="let comment">{{comment.Text}}</td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="commentColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: commentColumns;"></tr>

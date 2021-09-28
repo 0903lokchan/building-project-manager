@@ -58,15 +58,15 @@ export class ProjectService {
       id: '999',
       ProjectID: 999,
       BuildingID: buildingID,
-      name: 'new project',
-      startDate: '08Jul2021',
-      finishDate: '17Aug2021',
-      projectManager: 'manager',
-      contactPerson: 'contact person',
-      contractor: 'contractor',
-      status: ProjectStatus.Current,
-      workList: [],
-      commentList: []
+      Name: 'new project',
+      StartDate: '08Jul2021',
+      EndDate: '17Aug2021',
+      ProjectManager: 'manager',
+      ContactPerson: 'contact person',
+      Contractor: 'contractor',
+      Status: ProjectStatus.Current,
+      Works: [],
+      Comments: []
     }
 
     return this.getProjects().pipe(
