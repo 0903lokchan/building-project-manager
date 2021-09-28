@@ -25,9 +25,6 @@ export class DirectoryService {
    * @returns An Observable of building list. Filtered according to user access if user argument is provided.
    */
   getBuildings(user?: User): Observable<Building[]> {
-    //TODO implement user access filtering
-    // TODO compute a projectList for each building
-    // TODO compute a contractorList for each building
     var allBuildings: Observable<Building[]> = this.http
       .get<Building[]>(this.buildingsApi)
       .pipe(
@@ -40,7 +37,7 @@ export class DirectoryService {
         catchError(this.handleError<Building[]>('httpGetBuildings', []))
     );
     
-    allBuildings = this.buildProjectList(allBuildings);
+    allBuildings = this.fetchProjectInfo(allBuildings);
 
     if (user) {
       return this.filterBuildings(allBuildings, user)
@@ -49,25 +46,40 @@ export class DirectoryService {
     }
   }
 
-  private buildProjectList(buildings: Observable<Building[]>): Observable<Building[]> {
+  /**
+   * Add a mapping to the Building array observable to add in project list and contractor list information.
+   * @param buildings Building array observables consisting raw buildings data from API
+   * @returns a Building array observable with additional information from children projects  
+   */
+  private fetchProjectInfo(buildings: Observable<Building[]>): Observable<Building[]> {
     return this.projectService.getProjects().pipe(
       mergeMap(projects => {
         const projMap: Map<number, number[]> = new Map();
+        const contractorMap : Map<number, string[]> = new Map()
         
         // find the project list for each building
         projects.forEach(project => {
+          // put project ID into project list for matching building
           const projId: number = project.ProjectID;
           const buildId: number = project.BuildingID;
           if (!projMap.has(buildId)) {
             projMap.set(buildId, []);
           }
           projMap.get(buildId)!.push(projId);
+
+          // put contractor into list for matching building
+          const contractor: string = project.contractor;
+          if (!contractorMap.has(buildId)) {
+            contractorMap.set(buildId, [])
+          }
+          contractorMap.get(buildId)!.push(contractor)
         })
 
         return buildings.pipe(
           map((buildings) => {
             return buildings.map((building) => {
               building.ProjectList = projMap.get(building.ID) || [];
+              building.ContractorList = contractorMap.get(building.ID) || [];
               return building
             })
           })
@@ -91,8 +103,13 @@ export class DirectoryService {
         );
 
       case 'contractor':
-        // TODO filter by contractorList
-        return buildings;
+        return buildings.pipe(
+          map((buildings) => {
+            return buildings.filter((building) => {
+              return building.ContractorList?.includes(user.LoginName)
+            })
+          })
+        );
 
       default:
         return buildings;
