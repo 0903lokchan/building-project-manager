@@ -12,14 +12,14 @@ export interface Project{
     id: string;
     ProjectID: number;
     BuildingID: number;
-    name: string;
+    Name: string;
 
-    status: ProjectStatus;
-    startDate: string;
-    finishDate: string;
-    contactPerson: string;
-    projectManager: string;
-    contractor: string;
-    workList: Work[];
-    commentList: Comment[];
+    Status: ProjectStatus;
+    StartDate: string;
+    EndDate: string;
+    ContactPerson: string;
+    ProjectManager: string;
+    Contractor: string;
+    Works: Work[];
+    Comments: Comment[];
 }

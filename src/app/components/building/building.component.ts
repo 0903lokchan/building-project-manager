@@ -73,13 +73,13 @@ export class BuildingComponent implements OnInit {
         this.projectUnschedule = [];
         // sort projects by their status
         projects.forEach((element) => {
-          if (element.status == ProjectStatus.Closed) {
+          if (element.Status == ProjectStatus.Closed) {
             this.projectClose.push(element);
-          } else if (element.status == ProjectStatus.Current) {
+          } else if (element.Status == ProjectStatus.Current) {
             this.projectCurrent.push(element);
-          } else if (element.status == ProjectStatus.Scheduled) {
+          } else if (element.Status == ProjectStatus.Scheduled) {
             this.projectSchedule.push(element);
-          } else if (element.status == ProjectStatus.Unscheduled) {
+          } else if (element.Status == ProjectStatus.Unscheduled) {
             this.projectUnschedule.push(element);
           }
         });

@@ -7,6 +7,6 @@ export enum WorkStatus {
 }
 
 export interface Work {
-    status: WorkStatus;
-    content: string;
+    Status: WorkStatus;
+    TypeOfWork: string;
 }

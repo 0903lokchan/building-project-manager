@@ -1,4 +1,4 @@
 export interface Comment {
-    author: string;
-    content: string;
+    Author: string;
+    Text: string;
 }

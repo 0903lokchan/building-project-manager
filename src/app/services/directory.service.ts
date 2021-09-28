@@ -68,7 +68,7 @@ export class DirectoryService {
           projMap.get(buildId)!.push(projId);
 
           // put contractor into list for matching building
-          const contractor: string = project.contractor;
+          const contractor: string = project.Contractor;
           if (!contractorMap.has(buildId)) {
             contractorMap.set(buildId, [])
           }
