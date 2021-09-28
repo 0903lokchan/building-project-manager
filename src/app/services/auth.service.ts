@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { LoginRequest } from '../data_model/loginRequest';
-import { User } from '../data_model/user';
+import { User, UserResponse } from '../data_model/user';
 import { MessageService } from './message.service';
 import { USERS } from '../mock_data/mock_users';
 
@@ -11,7 +11,7 @@ import { USERS } from '../mock_data/mock_users';
 	providedIn: 'root'
 })
 export class AuthService {
-	private userApi = 'api/users';
+	private userApi = 'https://happybuildings.sim.vuw.ac.nz/api/dongpham/user_list.json';
 	private httpOptions = {
 		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 	};
@@ -116,8 +116,11 @@ export class AuthService {
 	 */
 	private httpGetUserList(): Observable<User[]> {
 		return this.http
-			.get<User[]>(this.userApi)
-			.pipe(catchError(this.handleError<User[]>('httpGetUserList', [])));
+			.get<UserResponse>(this.userApi)
+			.pipe(
+				map(userResponse => userResponse.users),
+				catchError(this.handleError<User[]>('httpGetUserList', []))
+			);
 	}
 
 	/**
