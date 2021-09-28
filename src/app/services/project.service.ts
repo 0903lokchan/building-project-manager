@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Project, ProjectStatus } from '../data_model/project';
 import { Observable, of } from 'rxjs';
-import { catchError, mergeMap, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 
@@ -25,6 +25,10 @@ export class ProjectService {
     const url = `${this.projectsApi}/project.${id}.json`;
     return this.http.get<Project>(url).pipe(
       tap((_) => this.log(`fetched project id=${id}`)),
+      map(project => {
+        project.id = project.ProjectID.toString();
+        return project
+      }),
       catchError(this.handleError<Project>(`httpGetProject id=${id}`))
     );
   }
