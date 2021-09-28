@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Building } from '../data_model/building';
+import { Building, BuildingResponse } from '../data_model/building';
 import { BUILDINGS } from '../mock_data/mock-buildings';
 import { Observable, of } from 'rxjs';
 import { User } from '../data_model/user';
@@ -12,7 +12,8 @@ import { ProjectService } from './project.service';
   providedIn: 'root',
 })
 export class DirectoryService {
-  private buildingsApi = 'api/buildings';
+  private buildingsApi = 'https://happybuildings.sim.vuw.ac.nz/api/dongpham/building_dir.json';
+  // private buildingsApi = 'api/buildings'
   constructor(
     private http: HttpClient,
     private projectService: ProjectService,
@@ -26,11 +27,14 @@ export class DirectoryService {
    */
   getBuildings(user?: User): Observable<Building[]> {
     var allBuildings: Observable<Building[]> = this.http
-      .get<Building[]>(this.buildingsApi)
+      .get<BuildingResponse>(this.buildingsApi)
       .pipe(
+        map(buildingResponse => buildingResponse.buildings),
+        tap(buildings => console.log(buildings)),
         map((buildings) => {
           return buildings.map((building) => {
             building.Name = building.Address.split(',')[0];
+            building.ID = parseInt(building.ID.toString())
             return building;
           });
         }),

@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
 export class ProjectService {
   constructor(private http: HttpClient, private messageService: MessageService) {}
 
-  private projectsApi = 'api/projects';
+  private projectsApi = 'https://happybuildings.sim.vuw.ac.nz/api/dongpham';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -22,7 +22,7 @@ export class ProjectService {
    * @returns An Observable of the target Project. Returns an empty Project on error
    */
   getProject(id: string): Observable<Project> {
-    const url = `${this.projectsApi}/${id}`;
+    const url = `${this.projectsApi}/project.${id}.json`;
     return this.http.get<Project>(url).pipe(
       tap((_) => this.log(`fetched project id=${id}`)),
       catchError(this.handleError<Project>(`httpGetProject id=${id}`))
@@ -45,13 +45,12 @@ export class ProjectService {
    * Get a list of all projects by making GET calls with incremental id until 500 error
    */
   getProjectsSync(): Observable<Project[]> {
-    const url = "https://happybuildings.sim.vuw.ac.nz/api/dongpham"
 
     var startID: number = 0;
     const projects: Project[] = []
     while (true) {
       var request = new XMLHttpRequest();
-      var url_2 = `${url}/project.${startID}.json`
+      var url_2 = `${this.projectsApi}/project.${startID}.json`
       request.open('GET', url_2, false);
       request.send();
       
@@ -76,7 +75,8 @@ export class ProjectService {
    * @returns The updated Project object
    */
   updateProject(project: Project): Observable<Project> {
-    return this.http.put<Project>(this.projectsApi, project, this.httpOptions).pipe(
+    const url = `${this.projectsApi}/update.project.json`
+    return this.http.post<Project>(url, project, this.httpOptions).pipe(
       tap((_) => this.log(`updated project id=${project.id}`)),
       catchError(this.handleError<Project>('updateProject', project))
     );
@@ -93,7 +93,7 @@ export class ProjectService {
       ProjectManager: 'manager',
       ContactPerson: 'contact person',
       Contractor: 'contractor',
-      Status: ProjectStatus.Current,
+      Status: ProjectStatus.Scheduled,
       Works: [],
       Comments: []
     }
@@ -115,8 +115,9 @@ export class ProjectService {
    * @returns An Observable of the added project
    */
   addProject(project: Project): Observable<Project> {
+    const url = `${this.projectsApi}/update.project.json`
     return this.http
-      .post<Project>(this.projectsApi, project, this.httpOptions)
+      .post<Project>(url, project, this.httpOptions)
       .pipe(
         tap((newProject: Project) =>
           this.log(`added project w/ id=${newProject.id}`)
@@ -131,7 +132,7 @@ export class ProjectService {
    * @returns An Observable of deleted project
    */
   deleteProject(id: string): Observable<Project> {
-    const url = `${this.projectsApi}/${id}`;
+    const url = `${this.projectsApi}/delete.project.${id}.json`;
 
     return this.http.delete<Project>(url, this.httpOptions).pipe(
       tap((_) => this.log(`deleted project id=${id}`)),
