@@ -7,4 +7,5 @@ export interface Building {
     BuildingType: string;
     ConstructionDate: string;
     ProjectList?: number[];
+    ContractorList?: string[];
 }

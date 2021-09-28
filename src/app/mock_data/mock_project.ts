@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
         finishDate: "28Oct2021",
         contactPerson: "Eli",
         projectManager: "Tiff",
-        contractor: "Gio",
+        contractor: "cccc",
         workList: [
             {status: WorkStatus.Scheduled, content: "Work 1"},
             {status: WorkStatus.Cancelled, content: "Work 2"},
