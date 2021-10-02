@@ -2,10 +2,14 @@
     <mat-card *ngIf="project">
         <mat-card-header>
             <mat-card-title>
-                {{project.Name | uppercase}}
+                <div *ngIf="!editMode">{{project.Name | uppercase}}</div>
+                <input *ngIf="editMode" type="text" [(ngModel)]="editProject!.Name">
             </mat-card-title>
             <mat-card-subtitle>
-                {{project.Status}}
+                <div *ngIf="!editMode">{{project.Status}}</div>
+                <select *ngIf="editMode" [(ngModel)]="editProject!.Status">
+                    <option *ngFor="let projStatus of projectStatus">{{projStatus}}</option>
+                </select>
             </mat-card-subtitle>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu" *ngIf="currentUser.UserType=='manager'">
                 <mat-icon>more_vert</mat-icon>
