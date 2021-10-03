@@ -30,6 +30,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 // for directory
 import { FilterPipe } from "./components/directory/filter.pipe";
 import { MainComponent } from './components/main/main.component';
+import { DateDisplayPipe } from './date-display.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MainComponent } from './components/main/main.component';
     BuildingComponent,
     ProjectComponent,
     FilterPipe,
-    MainComponent //filter for directory
+    MainComponent,
+    DateDisplayPipe //filter for directory
   ],
   imports: [
     BrowserModule,

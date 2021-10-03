@@ -27,6 +27,13 @@ export class ProjectComponent implements OnInit {
   currentUser!: User;
   isManager!: boolean;
 
+  projectStatus = [
+    ProjectStatus.Closed,
+    ProjectStatus.Current,
+    ProjectStatus.Scheduled,
+    ProjectStatus.Unscheduled
+  ] 
+
   newCommentText?: string;
   // I know it's ugly but it's the only way I could make select in mat-table work
   workStatus = [
