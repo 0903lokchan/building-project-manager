@@ -17,6 +17,7 @@ import {
   toArray,
 } from 'rxjs/operators';
 import { from, Observable, zip } from 'rxjs';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-building',
@@ -67,6 +68,7 @@ export class BuildingComponent implements OnInit {
         mergeMap((ids) => this.getProjects(ids))
       )
       .subscribe((projects) => {
+        console.log(projects)
         this.projectClose = [];
         this.projectCurrent = [];
         this.projectSchedule = [];
@@ -84,7 +86,7 @@ export class BuildingComponent implements OnInit {
           }
         });
 
-        console.log(this.projectClose);
+        console.log(this.projectSchedule);
         
       });
   }

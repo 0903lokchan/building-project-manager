@@ -9,7 +9,32 @@
   <body>
     <div class="info">
       <h1 style="text-align: center">Building details</h1>
-      <p>This building is type: {{build.BuildingType}} address is {{build.Address}}, the date of construction is : {{build.ConstructionDate}} the owner is {{build.Owner}}</p>
+      <table style="width: 100%" id="t01">
+        <tr>
+          <th>This building is type: </th>
+          <td>{{build.BuildingType}}</td>
+        </tr>
+        <tr>
+          <th>address is :</th>
+          <td>{{build.Address}}</td>
+        </tr>
+        <tr>
+          <th>
+            the date of construction is :
+          </th>
+          <td>
+            {{build.ConstructionDate | dateDisplay}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            the owner is :
+          </th>
+          <td>
+            {{build.Owner}}
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="container">
       <h2 style="text-align: center">Project List</h2>

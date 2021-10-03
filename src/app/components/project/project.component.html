@@ -31,12 +31,12 @@
                             <table>
                                 <tr>
                                     <th>Start date:</th>
-                                    <td *ngIf="!editMode">{{project.StartDate}}</td>
+                                    <td *ngIf="!editMode">{{project.StartDate | dateDisplay}}</td>
                                     <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.StartDate"></td>
                                 </tr>
                                 <tr>
                                     <th>Finish date:</th>
-                                    <td *ngIf="!editMode">{{project.EndDate}}</td>
+                                    <td *ngIf="!editMode">{{project.EndDate | dateDisplay}}</td>
                                     <td *ngIf="editMode"><input type="text" [(ngModel)]="editProject!.EndDate"></td>
                                 </tr>
                                 <tr>
