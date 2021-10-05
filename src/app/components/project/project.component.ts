@@ -16,7 +16,7 @@ export class ProjectComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
   projectID!: string;
   workColumns: string[] = ['content', 'status'];
@@ -31,8 +31,8 @@ export class ProjectComponent implements OnInit {
     ProjectStatus.Closed,
     ProjectStatus.Current,
     ProjectStatus.Scheduled,
-    ProjectStatus.Unscheduled
-  ] 
+    ProjectStatus.Unscheduled,
+  ];
 
   newCommentText?: string;
   // I know it's ugly but it's the only way I could make select in mat-table work
@@ -46,29 +46,30 @@ export class ProjectComponent implements OnInit {
 
   getProject(): void {
     this.projectService.getProject(this.projectID).subscribe((project) => {
-      this.project = project ? project : {
-        id: '0',
-        ProjectID: 0,
-        BuildingID: 1,
-        Name: 'dummy project',
-        StartDate: '08Jul2021',
-        EndDate: '17Aug2021',
-        ProjectManager: 'manager',
-        ContactPerson: 'contact person',
-        Contractor: 'contractor',
-        Status: ProjectStatus.Current,
-        Works: [],
-        Comments: []
-      }
+      this.project = project
+        ? project
+        : {
+            id: '0',
+            ProjectID: 0,
+            BuildingID: 1,
+            Name: 'dummy project',
+            StartDate: '08Jul2021',
+            EndDate: '17Aug2021',
+            ProjectManager: 'manager',
+            ContactPerson: 'contact person',
+            Contractor: 'contractor',
+            Status: ProjectStatus.Current,
+            Works: [],
+            Comments: [],
+          };
     });
   }
 
   sendProject(project: Project): void {
-    this.projectService.updateProject(project)
-      .subscribe(project => {
-        console.log(project);
-        this.getProject()
-      })
+    this.projectService.updateProject(project).subscribe((project) => {
+      console.log(project);
+      this.getProject();
+    });
   }
 
   enterEdit(): void {
@@ -92,8 +93,8 @@ export class ProjectComponent implements OnInit {
     if (!confirm('Confirm mark project as archived?')) {
       return;
     }
-    const project = { ...this.project }
-    project.Status = ProjectStatus.Closed
+    const project = { ...this.project };
+    project.Status = ProjectStatus.Closed;
     this.sendProject(project);
   }
 
@@ -101,8 +102,8 @@ export class ProjectComponent implements OnInit {
     if (!confirm('Confirm mark project as current?')) {
       return;
     }
-    const project = { ...this.project }
-    project.Status = ProjectStatus.Current
+    const project = { ...this.project };
+    project.Status = ProjectStatus.Current;
     this.sendProject(project);
   }
 
@@ -110,53 +111,57 @@ export class ProjectComponent implements OnInit {
     if (!confirm('Confirm mark project as closed?')) {
       return;
     }
-    const project = { ...this.project }
-    project.Status = ProjectStatus.Closed
+    const project = { ...this.project };
+    project.Status = ProjectStatus.Closed;
     this.sendProject(project);
   }
 
   createWork(): void {
     const newWork = prompt('Please enter name for the new work') || '';
-    const project = {...this.project}
+    const project = { ...this.project };
     project.Works.push({
       TypeOfWork: newWork,
       Status: WorkStatus.Scheduled,
     });
-    this.sendProject(project)
+    this.sendProject(project);
   }
 
   deleteWork(id: number): void {
-    const project = {...this.project}
-    project.Works.splice(id, 1);
-    this.sendProject(project)
+    if (confirm('Confirm deleting work?')) {
+      const project = { ...this.project };
+      project.Works.splice(id, 1);
+      this.sendProject(project);
+    }
   }
 
   changeWorkStatus(): void {
-    this.sendProject(this.project)
+    this.sendProject(this.project);
   }
 
   createComment(): void {
-    const project = { ...this.project }
+    const project = { ...this.project };
     const newComment: Comment = {
       Author: this.currentUser.LoginName,
-      Text: this.newCommentText!
-    }
-    project.Comments.push(newComment)
-    this.sendProject(project)
-    delete this.newCommentText
+      Text: this.newCommentText!,
+    };
+    project.Comments.push(newComment);
+    this.sendProject(project);
+    delete this.newCommentText;
   }
 
   deleteComment(id: number): void {
-    const project = {...this.project}
-    project.Comments.splice(id, 1);
-    this.sendProject(project)
+    if (confirm('Confirm deleting comment?')) {
+      const project = { ...this.project };
+      project.Comments.splice(id, 1);
+      this.sendProject(project);
+    }
   }
 
   ngOnInit(): void {
     this.authService.getCurrentUser$().subscribe((user) => {
       if (user) {
         this.currentUser = user;
-        this.isManager = user.UserType == "manager"
+        this.isManager = user.UserType == 'manager';
       } else {
         //test user
         this.currentUser = {

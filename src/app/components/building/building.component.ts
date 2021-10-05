@@ -68,7 +68,7 @@ export class BuildingComponent implements OnInit {
         mergeMap((ids) => this.getProjects(ids))
       )
       .subscribe((projects) => {
-        console.log(projects)
+        console.log(projects);
         this.projectClose = [];
         this.projectCurrent = [];
         this.projectSchedule = [];
@@ -87,7 +87,6 @@ export class BuildingComponent implements OnInit {
         });
 
         console.log(this.projectSchedule);
-        
       });
   }
 
@@ -98,8 +97,10 @@ export class BuildingComponent implements OnInit {
 
   delete(id: string) {
     if (this.authService.getCurrentUser().UserType.match('manager')) {
-      this.projectService.deleteProject(id).subscribe();
-      this.getBuildings(this.buildingId);
+      if (confirm('Confirm deleting the project?')) {
+        this.projectService.deleteProject(id).subscribe();
+        this.getBuildings(this.buildingId);
+      }
     } else {
       alert('you are not the manager');
     }
