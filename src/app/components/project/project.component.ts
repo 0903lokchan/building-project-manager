@@ -146,6 +146,12 @@ export class ProjectComponent implements OnInit {
     delete this.newCommentText
   }
 
+  deleteComment(id: number): void {
+    const project = {...this.project}
+    project.Comments.splice(id, 1);
+    this.sendProject(project)
+  }
+
   ngOnInit(): void {
     this.authService.getCurrentUser$().subscribe((user) => {
       if (user) {
