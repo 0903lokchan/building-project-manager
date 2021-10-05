@@ -112,7 +112,12 @@
                                 </ng-container>
                                 <ng-container matColumnDef="comment">
                                     <th mat-header-cell *matHeaderCellDef>Comment</th>
-                                    <td mat-cell *matCellDef="let comment">{{comment.Text}}</td>
+                                    <td mat-cell *matCellDef="let comment; let i = index;">
+                                        {{comment.Text}}
+                                        <button mat-icon-button *ngIf="isManager" color="accent" (click)="deleteComment(i)" aria-label="delete comment">
+                                            <mat-icon>cancel</mat-icon>
+                                        </button>
+                                    </td>
                                 </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="commentColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: commentColumns;"></tr>
